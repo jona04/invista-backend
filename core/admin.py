@@ -1,0 +1,72 @@
+from django.contrib import admin,messages
+from django.utils import timezone
+from django.shortcuts import render
+
+# Register your models here.
+
+from .models import Cliente,Chapa,Servico
+
+admin.site.disable_action('delete_selected')
+
+
+def imprimir_recibo(self, request, queryset):
+    if (len(queryset) == 1):
+        obj = queryset[0]
+
+
+        subject = "Recibo Invista"
+        context = {
+            'nome': obj.nome,
+            'cliente': obj.cliente.nome,
+            'email': obj.cliente.email,
+            'telefone': obj.cliente.telefone,
+            'chapa': obj.chapa.nome,
+            'quantidade': obj.quantidade,
+            'valor_unidade': obj.chapa.valor,
+            'valor_total': obj.quantidade * obj.chapa.valor,
+            'obs':obj.obs,
+        }
+        template_name = 'layout_recibo.html'
+        return render(request,
+                      'layout_recibo.html',
+                      context)
+        # send_mail_template(subject, template_name, context, [obj.email])
+
+        # send_mail(
+        # 	subject="Orcamento THE Brindes",
+        # 	message="Mensagem do orçamento",
+        # 	from_email=settings.DEFAULT_FROM_EMAIL,
+        # 	recipient_list=[obj.email]
+        # 	)
+        type_messages = messages.INFO
+        message = "Recibo enviado com sucesso para %s" % obj.cliente.nome
+
+        print("Ok")
+        obj.status = 4
+        obj.fineshed_at = timezone.now()
+        obj.save()
+
+    self.message_user(request, message, type_messages)
+
+#nome que irá aparecer no display para o osuauro
+imprimir_recibo.short_description = "Imprimir Recibo"
+
+
+
+
+class ClienteAdmin(admin.ModelAdmin):
+	list_display = ['nome','email','telefone','cidade','estado']
+	search_fields = ['nome']
+
+class ChapaAdmin(admin.ModelAdmin):
+	list_display = ['nome','valor','estoque']
+	search_fields = ['nome']
+
+class ServicoAdmin(admin.ModelAdmin):
+    list_display = ['nome','cliente','chapa','quantidade']
+    search_fields = ['nome']
+    actions = [imprimir_recibo]
+
+admin.site.register(Cliente,ClienteAdmin)
+admin.site.register(Chapa,ChapaAdmin)
+admin.site.register(Servico,ServicoAdmin)

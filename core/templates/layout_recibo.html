@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+ <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Molde Boleto Bancario</title>
+<style type="text/css">
+
+tr {
+    border: 1px solid #000;
+}
+table {
+    width: 690px;
+    border: 1px solid #000;
+}
+#boleto_parceiro{
+    width: 690px;
+    margin:0 auto 0 auto;
+}
+</style>
+</head>
+
+<body>
+<div id="boleto_parceiro">
+    <img  width="690px" src="https://s3-sa-east-1.amazonaws.com/thebrindes/img+recibo.jpg" alt="Invista e THE Brindes" />
+    <br/>
+    Rua doutor Area Leao, 735 - Centro Norte<br />
+    Telefone para contato: (86) 3221-0215
+    <table cellpadding="10" cellspacing="0">
+    <tr>
+        <td align="center" colspan="3"> <hr><h4>Descrição do cliente</h4> <hr></td>
+    </tr>
+      <tr>
+    <td>Nome: {{cliente}} </td>
+    <td>Endereço: </td>
+    <td>Telefone:</td>
+    </tr>
+
+    <tr>
+    <td align="center" colspan="3"><hr><h4>Descrição do Pedido</h4> <hr></td>
+
+    </tr>
+      <tr>
+    <td>Serviço: {{ nome }} </td>
+    <td>Quantidade: {{ quantidade }} </td>
+    <td rowspan="2">Valor total: {{valor_total }} </td>
+    </tr>
+    </table>
+    <br>
+    Recebido por: _______________________________________<br>
+    Autorizado por: _____________________________________<br>
+    Visto por: __________________________________________<br>
+</div>
+</body>
+</html>
