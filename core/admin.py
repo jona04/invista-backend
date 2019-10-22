@@ -21,6 +21,12 @@ def imprimir_recibo(self, request, queryset):
         mes = data_atual.month
         ano = data_atual.year
 
+        desconto = 0
+        if obj.desconto == None:
+            desconto = 0
+        else:
+            desconto = obj.desconto
+
         context = {
             'nome': obj.nome,
             'cliente': obj.cliente.nome,
@@ -33,8 +39,12 @@ def imprimir_recibo(self, request, queryset):
             'dia':dia,
             'mes':mes,
             'ano':ano,
-            'desconto':obj.desconto,
-            'valor_total': obj.quantidade * obj.chapa.valor - obj.desconto,
+
+
+
+            'desconto':desconto,
+            'valor_total': obj.quantidade * obj.chapa.valor - desconto,
+
         }
         return render(request,
                       'layout_recibo.html',
