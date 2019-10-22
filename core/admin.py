@@ -5,6 +5,7 @@ from django.shortcuts import render
 # Register your models here.
 
 from .models import Cliente,Chapa,Servico
+from datetime import date
 
 admin.site.disable_action('delete_selected')
 
@@ -12,6 +13,13 @@ admin.site.disable_action('delete_selected')
 def imprimir_recibo(self, request, queryset):
     if (len(queryset) == 1):
         obj = queryset[0]
+
+
+
+        data_atual = date.today()
+        dia = data_atual.day
+        mes = data_atual.month
+        ano = data_atual.year
 
         context = {
             'nome': obj.nome,
@@ -23,6 +31,9 @@ def imprimir_recibo(self, request, queryset):
             'valor_unidade': obj.chapa.valor,
             'valor_total': obj.quantidade * obj.chapa.valor,
             'obs':obj.obs,
+            'dia':dia,
+            'mes':mes,
+            'ano':ano
         }
         return render(request,
                       'layout_recibo.html',
