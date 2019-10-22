@@ -29,11 +29,12 @@ def imprimir_recibo(self, request, queryset):
             'chapa': obj.chapa.nome,
             'quantidade': obj.quantidade,
             'valor_unidade': obj.chapa.valor,
-            'valor_total': obj.quantidade * obj.chapa.valor,
             'obs':obj.obs,
             'dia':dia,
             'mes':mes,
-            'ano':ano
+            'ano':ano,
+            'desconto':obj.desconto,
+            'valor_total': obj.quantidade * obj.chapa.valor - obj.desconto,
         }
         return render(request,
                       'layout_recibo.html',

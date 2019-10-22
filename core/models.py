@@ -48,7 +48,7 @@ class Servico(models.Model):
     cliente = models.ForeignKey(Cliente, verbose_name='Cliente', related_name='clientes',on_delete=models.PROTECT)
     chapa = models.ForeignKey(Chapa, verbose_name='Chapa', related_name='servico', on_delete=models.PROTECT)
     quantidade = models.IntegerField('Quantidade')
-    prazo = models.IntegerField('Dias para entrega', null=True, blank=False)
+    desconto = models.FloatField('Desconto', null=True, blank=False)
     created_at = models.DateTimeField('Criado em', auto_now_add=True, null=True)
     uploaded_at = models.DateTimeField('Atualizado em', auto_now=True, null=True)
     fineshed_at = models.DateTimeField('Recibo feito em', null=True, blank=True)

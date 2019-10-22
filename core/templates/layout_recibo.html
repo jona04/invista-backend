@@ -122,19 +122,31 @@ img{
         <td>{{ nome }} </td>
         <td>{{ chapa }} </td>
         <td>{{quantidade }} </td>
-        <td>{{valor_unidade }} </td>
+        <td> R$ {{valor_unidade }} </td>
     </tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr>
+
+
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+
+    {% if desconto > 0 %}
+    <tr>
         <td></td>
         <td></td>
         <td></td>
-        <td>Total: {{valor_total }} </td>
+        <td>Desconto: R$ {{ desconto }} </td>
+    </tr>
+    {% endif %}
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total: R$ {{valor_total }} </td>
     </tr>
     </table>
     <div id="assinatura">
@@ -208,20 +220,32 @@ img{
         <td>{{ nome }} </td>
         <td>{{ chapa }} </td>
         <td>{{quantidade }} </td>
-        <td>{{valor_unidade }} </td>
+        <td> R$ {{valor_unidade }} </td>
     </tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+
+    {% if desconto > 0 %}
+    <tr>
         <td></td>
         <td></td>
         <td></td>
-        <td>Total: {{valor_total }} </td>
+        <td>Desconto: R$ {{ desconto }} </td>
     </tr>
+    {% endif %}
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total: R$ {{valor_total }} </td>
+    </tr>
+
+
     </table>
     <div id="assinatura">
         <p style="width:33%; float:left;" align="center">____________________________<br>Recebido por</p>
