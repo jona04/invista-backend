@@ -7,6 +7,9 @@
 <title>Nota de Entrega Invista</title>
 <style type="text/css">
 
+body{
+    width:1400px;
+}
 tr {
     border: 1px solid #000;
 }
@@ -15,7 +18,7 @@ tr {
     border: 1px solid #ccc;
     border-radius: 25px;
     padding:10px;
-    margin:30px 0 0 0;
+    margin:80px 0 0 0;
 }
 
 #topo_esq {
@@ -30,10 +33,16 @@ tr {
     border: 1px solid #ccc;
     height:150px;
 }
-#boleto_parceiro{
+#fundo1{
     width: 690px;
-    margin:0 auto 0 auto;
+    float:left;
 }
+
+#fundo2{
+    width: 690px;
+    float:right;
+}
+
 img{
     float:left;
     margin-top:20px;
@@ -42,12 +51,14 @@ img{
 #titulo {
   font-weight: bold;
 }
-
+#assinatura{
+    margin-top:50px;
+}
 </style>
 </head>
 
 <body>
-<div id="boleto_parceiro">
+<div id="fundo1">
 
     <img  height="150" src="https://tbrindes.s3-sa-east-1.amazonaws.com/Captura+de+Tela+2019-10-21+às+22.50.44.png" alt="Invista Publicidade Grafica e Editora" />
     <br/>
@@ -126,10 +137,97 @@ img{
         <td>Total: {{valor_total }} </td>
     </tr>
     </table>
-    <br>
-    <p style="width:33%; float:left;" align="center">____________________________<br>Recebido por</p>
-    <p style="width:33%; float:left;" align="center">____________________________<br>Autorizado por</p>
-    <p style="width:23%; float:left; " align="center">___________________________<br>Visto por</p>
+    <div id="assinatura">
+        <p style="width:33%; float:left;" align="center">____________________________<br>Recebido por</p>
+        <p style="width:33%; float:left;" align="center">____________________________<br>Autorizado por</p>
+        <p style="width:23%; float:left; " align="center">___________________________<br>Visto por</p>
+    </div>
+</div>
+
+<div id="fundo2">
+
+    <img  height="150" src="https://tbrindes.s3-sa-east-1.amazonaws.com/Captura+de+Tela+2019-10-21+às+22.50.44.png" alt="Invista Publicidade Grafica e Editora" />
+    <br/>
+
+    <table id="topo_esq">
+        <tr>
+        <td align="center" colspan="3">
+            <p>Invista Publicidade, Eventos e Editora Gráfica LTDA.<br>
+                Rua doutor Area Leão, 735 - Centro Norte<br>
+                Telefone para contato: (86) 3221-0215
+                <br>
+                CEP: 64000-310- Teresina Piauí
+                <br>
+                CNPJ: 07.251.676/0001-05
+
+            </p>
+        </td>
+    </tr>
+
+    </table>
+
+    <table id="topo_dir">
+        <tr>
+        <td align="center" colspan="4">
+            <p>Nota de Entrega<br>
+                Data: <br>{{dia}} / {{mes}} / {{ano}}
+            </p>
+        </td>
+    </tr>
+
+    </table>
+
+    <table id="corpo">
+    <tr>
+        <td align="center" colspan="4"><h4>Informações do cliente</h4> <hr></td>
+    </tr>
+    <tr>
+        <td>Nome: {{cliente}} </td>
+        <td>Endereço: </td>
+    </tr>
+
+    <tr>
+        <td>Cidade:</td>
+        <td>Estado: </td>
+    </tr>
+
+
+    <tr>
+    <td align="center" colspan="4"><hr><h4>Descrição do Pedido</h4> <hr></td>
+
+    </tr>
+
+    <tr id="titulo">
+        <td>Serviço</td>
+        <td>Chapa</td>
+        <td>Quantidade</td>
+        <td>V. unitario</td>
+    </tr>
+
+    <tr>
+        <td>{{ nome }} </td>
+        <td>{{ chapa }} </td>
+        <td>{{quantidade }} </td>
+        <td>{{valor_unidade }} </td>
+    </tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total: {{valor_total }} </td>
+    </tr>
+    </table>
+    <div id="assinatura">
+        <p style="width:33%; float:left;" align="center">____________________________<br>Recebido por</p>
+        <p style="width:33%; float:left;" align="center">____________________________<br>Autorizado por</p>
+        <p style="width:23%; float:left; " align="center">___________________________<br>Visto por</p>
+    </div>
 </div>
 </body>
 </html>
