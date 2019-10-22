@@ -4,53 +4,120 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Molde Boleto Bancario</title>
+<title>Nota de Entrega Invista</title>
 <style type="text/css">
 
 tr {
     border: 1px solid #000;
 }
-table {
+#corpo {
     width: 690px;
-    border: 1px solid #000;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding:10px;
+    margin:30px 0 0 0;
+}
+
+#topo_esq {
+    width: 45%;
+    height:150px;
+    border: 1px solid #ccc;
+    float:left;
+
+}
+#topo_dir {
+    width: 20%;
+    border: 1px solid #ccc;
+    height:150px;
 }
 #boleto_parceiro{
     width: 690px;
     margin:0 auto 0 auto;
 }
+img{
+    float:left;
+    margin-top:20px;
+    width: 35%
+}
+#titulo {
+  font-weight: bold;
+}
+
 </style>
 </head>
 
 <body>
 <div id="boleto_parceiro">
-    <img  width="690px" src="https://s3-sa-east-1.amazonaws.com/thebrindes/img+recibo.jpg" alt="Invista e THE Brindes" />
+
+    <img  height="150" src="https://tbrindes.s3-sa-east-1.amazonaws.com/Captura+de+Tela+2019-10-21+às+22.50.44.png" alt="Invista Publicidade Grafica e Editora" />
     <br/>
-    Rua doutor Area Leao, 735 - Centro Norte<br />
-    Telefone para contato: (86) 3221-0215
-    <table cellpadding="10" cellspacing="0">
-    <tr>
-        <td align="center" colspan="3"> <hr><h4>Descrição do cliente</h4> <hr></td>
+
+    <table id="topo_esq">
+        <tr>
+        <td align="center" colspan="3">
+            <p>Invista Publicidade, Eventos e Editora Gráfica LTDA.<br>
+                Rua doutor Area Leão, 735 - Centro Norte<br>
+                Telefone para contato: (86) 3221-0215
+                <br>
+                CEP: 64000-310- Teresina Piauí
+                <br>
+                CNPJ: 07.251.676/0001-05
+
+            </p>
+        </td>
     </tr>
-      <tr>
-    <td>Nome: {{cliente}} </td>
-    <td>Endereço: </td>
-    <td>Telefone:</td>
+
+    </table>
+
+    <table id="topo_dir">
+        <tr>
+        <td align="center" colspan="4">
+            <p>Nota de Entrega<br>
+                Data:
+            </p>
+        </td>
+    </tr>
+
+    </table>
+
+    <table id="corpo">
+    <tr>
+        <td align="center" colspan="4"><h4>Informações do cliente</h4> <hr></td>
+    </tr>
+    <tr>
+        <td>Nome: {{cliente}} </td>
+        <td>Endereço: </td>
     </tr>
 
     <tr>
-    <td align="center" colspan="3"><hr><h4>Descrição do Pedido</h4> <hr></td>
+        <td>Cidade:</td>
+        <td>Estado: </td>
+    </tr>
+
+
+    <tr>
+    <td align="center" colspan="4"><hr><h4>Descrição do Pedido</h4> <hr></td>
 
     </tr>
-      <tr>
-    <td>Serviço: {{ nome }} </td>
-    <td>Quantidade: {{ quantidade }} </td>
-    <td rowspan="2">Valor total: {{valor_total }} </td>
+
+    <tr id="titulo">
+        <td>Serviço</td>
+        <td>Chapa</td>
+        <td>V. Unitário</td>
+        <td>V. Total</td>
+    </tr>
+
+    <tr>
+        <td>{{ nome }} </td>
+        <td>{{ quantidade }} </td>
+        <td>{{valor_unidade }} </td>
+        <td>{{valor_total }} </td>
     </tr>
     </table>
     <br>
-    Recebido por: _______________________________________<br>
-    Autorizado por: _____________________________________<br>
-    Visto por: __________________________________________<br>
+    <p style="width:33%; float:left;" align="center">____________________________<br>Recebido por</p>
+    <p style="width:33%; float:left;" align="center">____________________________<br>Autorizado por</p>
+    <p style="width:23%; float:left; " align="center">___________________________<br>Visto por</p>
 </div>
 </body>
 </html>

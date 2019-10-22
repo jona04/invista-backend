@@ -13,8 +13,6 @@ def imprimir_recibo(self, request, queryset):
     if (len(queryset) == 1):
         obj = queryset[0]
 
-
-        subject = "Recibo Invista"
         context = {
             'nome': obj.nome,
             'cliente': obj.cliente.nome,
@@ -26,7 +24,6 @@ def imprimir_recibo(self, request, queryset):
             'valor_total': obj.quantidade * obj.chapa.valor,
             'obs':obj.obs,
         }
-        template_name = 'layout_recibo.html'
         return render(request,
                       'layout_recibo.html',
                       context)
@@ -39,7 +36,7 @@ def imprimir_recibo(self, request, queryset):
         # 	recipient_list=[obj.email]
         # 	)
         type_messages = messages.INFO
-        message = "Recibo enviado com sucesso para %s" % obj.cliente.nome
+        message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
 
         print("Ok")
         obj.status = 4
@@ -49,7 +46,7 @@ def imprimir_recibo(self, request, queryset):
     self.message_user(request, message, type_messages)
 
 #nome que irá aparecer no display para o osuauro
-imprimir_recibo.short_description = "Imprimir Recibo"
+imprimir_recibo.short_description = "Imprimir Nota de Entrega"
 
 
 
