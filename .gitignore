@@ -1,4 +1,6 @@
 invista/local_settings.py
-*.pycyes
+*.pyc
+staticfiles
+static
 db.sqlite3
 local_settings.py
