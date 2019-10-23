@@ -2,6 +2,8 @@ from django.contrib import admin,messages
 from django.utils import timezone
 from django.shortcuts import render
 
+from django.contrib.admin import DateFieldListFilter
+
 # Register your models here.
 
 from .models import Cliente,Chapa,Servico
@@ -106,9 +108,13 @@ class ChapaAdmin(admin.ModelAdmin):
 	search_fields = ['nome']
 
 class ServicoAdmin(admin.ModelAdmin):
-    list_display = ['nome','cliente','chapa','quantidade']
-    search_fields = ['nome']
+    list_display = ['nome','cliente','chapa','quantidade','created_at']
+    search_fields = ['nome','cliente__nome','created_at']
     actions = [imprimir_recibo]
+
+    list_filter = (
+        ('created_at', DateFieldListFilter),
+    )
 
 admin.site.register(Cliente,ClienteAdmin)
 admin.site.register(Chapa,ChapaAdmin)
