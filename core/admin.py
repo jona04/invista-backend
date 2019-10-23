@@ -21,6 +21,7 @@ def imprimir_recibo(self, request, queryset):
         mes = data_atual.month
         ano = data_atual.year
 
+        id = 10000 + obj.id
         desconto = 0
         if obj.desconto == None:
             desconto = 0
@@ -39,6 +40,7 @@ def imprimir_recibo(self, request, queryset):
             'dia':dia,
             'mes':mes,
             'ano':ano,
+            'id': id,
 
 
 
