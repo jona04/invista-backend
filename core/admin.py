@@ -22,7 +22,24 @@ def imprimir_recibo(self, request, queryset):
         ano = data_atual.year
 
         id = 10000 + obj.id
-        endereco = obj.cliente.rua + ' ' + obj.cliente.numero + ' ' + obj.cliente.bairro
+        rua = obj.cliente.rua
+        numero = obj.cliente.numero
+        bairro = obj.cliente.bairro
+        cidade = obj.cliente.cidade
+        estado = obj.cliente.estado
+
+        if cidade == None:
+            cidade = ''
+        if estado == None:
+            estado = ''
+        if rua == None:
+            rua = ''
+        if numero == None:
+            numero = ''
+        if bairro == None:
+            bairro = ''
+
+        endereco = rua + ' ' + numero + ' ' + bairro
         desconto = 0
         if obj.desconto == None:
             desconto = 0
@@ -43,8 +60,8 @@ def imprimir_recibo(self, request, queryset):
             'ano':ano,
             'id': id,
             'endereco': endereco,
-            'cidade' : obj.cliente.cidade,
-            'estado' : obj.cliente.estado,
+            'cidade' : cidade,
+            'estado' : estado,
 
 
 
