@@ -21,27 +21,27 @@ class Chapa(models.Model):
 
 class Cliente(models.Model):
 
-	nome = models.CharField('* Nome / Empresa',max_length=200)
-	email = models.EmailField('* Email',max_length=100,null=True,blank=True)
-	telefone = models.CharField('* Fone',max_length=20,null=True,blank=True)
-	cnpj = models.CharField('CNPJ',max_length=40,null=True,blank=True)
-	cpf = models.CharField('CPF',max_length=40,null=True,blank=True)
-	rua = models.CharField('Rua',max_length=40,null=True,blank=True)
-	numero = models.IntegerField('Numero',null=True,blank=True)
-	cidade = models.CharField('Cidade',max_length=40,null=True,blank=True)
-	estado = models.CharField('Estado',max_length=40,null=True,blank=True)
-	cep = models.CharField('Cep',max_length=40,null=True,blank=True)
-	created_at = models.DateTimeField('Criado em', auto_now_add=True,null=True)
-	uploaded_at = models.DateTimeField('Atualizado em', auto_now=True,null=True)
+    nome = models.CharField('* Nome / Empresa',max_length=200)
+    email = models.EmailField('* Email',max_length=100,null=True,blank=True)
+    telefone = models.CharField('* Fone',max_length=20,null=True,blank=True)
+    cnpj = models.CharField('CNPJ',max_length=40,null=True,blank=True)
+    cpf = models.CharField('CPF',max_length=40,null=True,blank=True)
+    rua = models.CharField('Rua',max_length=40,null=True,blank=True)
+    bairro = models.CharField('Bairro',max_length=40,null=True,blank=True)
+    numero = models.IntegerField('Numero',null=True,blank=True)
+    cidade = models.CharField('Cidade',max_length=40,null=True,blank=True)
+    estado = models.CharField('Estado',max_length=40,null=True,blank=True)
+    cep = models.CharField('Cep',max_length=40,null=True,blank=True)
+    created_at = models.DateTimeField('Criado em', auto_now_add=True,null=True)
+    uploaded_at = models.DateTimeField('Atualizado em', auto_now=True,null=True)
 
-	def __str__(self):
-		return self.nome
+    def __str__(self):
+        return self.nome
 
-	class Meta:
-		verbose_name = "Cliente"
-		verbose_name_plural = "Clientes"
-		ordering = ['-created_at']
-
+    class Meta:
+        verbose_name = "Cliente"
+        verbose_name_plural = "Clientes"
+        ordering = ['-created_at']
 
 class Servico(models.Model):
     nome = models.CharField('Nome Serviço', max_length=200)
