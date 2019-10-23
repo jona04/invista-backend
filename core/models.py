@@ -17,7 +17,7 @@ class Chapa(models.Model):
     class Meta:
         verbose_name = "Chapa"
         verbose_name_plural = "Chapas"
-        ordering = ['-created_at']
+        ordering = ['nome']
 
 class Cliente(models.Model):
 
