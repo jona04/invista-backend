@@ -39,7 +39,7 @@ def imprimir_recibo(self, request, queryset):
         if bairro == None:
             bairro = ''
 
-        endereco = rua + ' ' + str(numero) + ' ' + bairro
+        endereco = rua + ' ' + str(numero)
         desconto = 0
         if obj.desconto == None:
             desconto = 0
@@ -62,6 +62,7 @@ def imprimir_recibo(self, request, queryset):
             'endereco': endereco,
             'cidade' : cidade,
             'estado' : estado,
+            'bairro':bairro,
 
 
 
