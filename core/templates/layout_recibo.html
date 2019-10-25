@@ -10,11 +10,9 @@
 body{
 margin:0;
 }
-tr {
-    border: 1px solid #000;
-}
+
 #corpo {
-    width: 690px;
+    width: 800px;
     border: 1px solid #ccc;
     border-radius: 25px;
     margin-top:10px;
@@ -22,7 +20,7 @@ tr {
 
 #topo_esq {
     width: 60%;
-    height:140px;
+    height:135px;
     border: 1px solid #ccc;
     float:left;
 
@@ -30,16 +28,16 @@ tr {
 #topo_dir {
     width: 20%;
     border: 1px solid #ccc;
-    height:140px;
+    height:135px;
 }
 #fundo1{
-    width: 690px;
+    width: 800px;
     margin: 0 auto 0 auto;
 }
 
 #fundo2{
-    width: 690px;
-    margin: 50px auto 0 auto;
+    width: 800px;
+    margin: 150px auto 0 auto;
 }
 
 img{
@@ -92,25 +90,22 @@ img{
 
     <table id="corpo">
     <tr>
-        <td align="center" colspan="4"><h4>Informações do cliente</h4> <hr></td>
+        <td align="center" colspan="6"><h4>Informações do cliente</h4> <hr></td>
     </tr>
     <tr>
-        <td colspan="2">Nome: {{cliente}} </td>
-        <td>Telefone: {{ telefone }} </td>
+        <td colspan="2" >Nome: {{cliente}} </td>
+        <td colspan="2" >Telefone: {{ telefone }} </td>
+        <td colspan="2" >Cidade: {{ cidade }}</td>
     </tr>
     <tr>
-        <td colspan="2">Endereço: {{endereco}} </td>
-        <td>Bairro: {{ bairro }} </td>
-    </tr>
-
-    <tr>
-        <td colspan="2">Cidade: {{ cidade }}</td>
-        <td>Estado: {{ estado }} </td>
+        <td colspan="2" >Endereço: {{endereco}} </td>
+        <td colspan="2" >Bairro: {{ bairro }} </td>
+        <td colspan="2" >Estado: {{ estado }} </td>
     </tr>
 
 
     <tr>
-    <td align="center" colspan="4"><hr><h4>Descrição do Pedido</h4> <hr></td>
+    <td align="center" colspan="6"><hr><h4>Descrição do Pedido</h4> <hr></td>
 
     </tr>
 
@@ -119,6 +114,8 @@ img{
         <td>Chapa</td>
         <td>Quantidade</td>
         <td>V. unitario</td>
+        <td> {% if desconto > 0 %} Desconto {% endif %}</td>
+        <td>V. Total</td>
     </tr>
 
     <tr>
@@ -126,27 +123,12 @@ img{
         <td>{{ chapa }} </td>
         <td>{{quantidade }} </td>
         <td> R$ {{valor_unidade }} </td>
+        <td>{% if desconto > 0 %} R$ {{desconto }} {% endif %} </td>
+        <td> R$ {{valor_total }} </td>
     </tr>
 
 
-    <tr><td></td></tr>
-    <tr><td></td></tr>
 
-    {% if desconto > 0 %}
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Desconto: R$ {{ desconto }} </td>
-    </tr>
-    {% endif %}
-
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Total: R$ {{valor_total }} </td>
-    </tr>
     </table>
     <div id="assinatura">
         <p style="width:33%; float:left;" align="center">____________________________<br>Recebido por</p>
@@ -154,6 +136,96 @@ img{
         <p style="width:23%; float:left; " align="center">___________________________<br>Visto por</p>
     </div>
 </div>
+
+
+
+
+
+<div id="fundo2">
+
+    <img  height="100" src="https://tbrindes.s3-sa-east-1.amazonaws.com/Captura+de+Tela+2019-10-21+às+22.50.44.png" alt="Invista Publicidade Grafica e Editora" />
+    <br/>
+
+    <table id="topo_esq">
+        <tr>
+        <td align="center" colspan="3">
+            <p>Invista Publicidade, Eventos e Editora Gráfica LTDA.<br>
+                Rua doutor Area Leão, 735 - Centro Norte<br>
+                Telefone para contato: (86) 3221-0215
+                <br>
+                CEP: 64000-310- Teresina Piauí
+                <br>
+                CNPJ: 07.251.676/0001-05
+
+            </p>
+        </td>
+    </tr>
+
+    </table>
+
+    <table id="topo_dir">
+        <tr>
+        <td align="center" colspan="4">
+            <p>Nota de Entrega:<br> {{ id }} </p>
+
+            <p>
+                Data: <br>{{dia}} / {{mes}} / {{ano}}
+            </p>
+        </td>
+    </tr>
+
+    </table>
+
+    <table id="corpo">
+    <tr>
+        <td align="center" colspan="6"><h4>Informações do cliente</h4> <hr></td>
+    </tr>
+    <tr>
+        <td colspan="2" >Nome: {{cliente}} </td>
+        <td colspan="2" >Telefone: {{ telefone }} </td>
+        <td colspan="2" >Cidade: {{ cidade }}</td>
+    </tr>
+    <tr>
+        <td colspan="2" >Endereço: {{endereco}} </td>
+        <td colspan="2" >Bairro: {{ bairro }} </td>
+        <td colspan="2" >Estado: {{ estado }} </td>
+    </tr>
+
+
+    <tr>
+    <td align="center" colspan="6"><hr><h4>Descrição do Pedido</h4> <hr></td>
+
+    </tr>
+
+    <tr id="titulo">
+        <td>Serviço</td>
+        <td>Chapa</td>
+        <td>Quantidade</td>
+        <td>V. unitario</td>
+        <td>{% if desconto > 0 %} Desconto {% endif %} </td>
+        <td>V. Total</td>
+    </tr>
+
+    <tr>
+        <td>{{ nome }} </td>
+        <td>{{ chapa }} </td>
+        <td>{{quantidade }} </td>
+        <td> R$ {{valor_unidade }} </td>
+        <td>{% if desconto > 0 %} R$ {{desconto }} {% endif %} </td>
+        <td> R$ {{valor_total }} </td>
+    </tr>
+
+
+
+    </table>
+    <div id="assinatura">
+        <p style="width:33%; float:left;" align="center">____________________________<br>Recebido por</p>
+        <p style="width:33%; float:left;" align="center">____________________________<br>Autorizado por</p>
+        <p style="width:23%; float:left; " align="center">___________________________<br>Visto por</p>
+    </div>
+</div>
+
+
 
 </body>
 </html>
