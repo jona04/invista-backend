@@ -125,7 +125,7 @@ def imprimir_recibo(self, request, queryset):
         for i in queryset:
             total = total +  ( i.chapa.valor * i.quantidade )
 
-            if obj.desconto == None:
+            if i.desconto == None:
                 desconto = desconto + 0
             else:
                 desconto = desconto +  i.desconto
