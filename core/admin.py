@@ -91,6 +91,86 @@ def imprimir_recibo(self, request, queryset):
         obj.fineshed_at = timezone.now()
         obj.save()
 
+    elif (len(queryset) > 1):
+
+        obj = queryset[0]
+
+        id = 10000 + obj.id
+        rua = obj.cliente.rua
+        numero = obj.cliente.numero
+        bairro = obj.cliente.bairro
+        cidade = obj.cliente.cidade
+        estado = obj.cliente.estado
+
+        if cidade == None:
+            cidade = ''
+        if estado == None:
+            estado = ''
+        if rua == None:
+            rua = ''
+        if numero == None:
+            numero = ''
+        if bairro == None:
+            bairro = ''
+
+        data_atual = date.today()
+        dia = data_atual.day
+        mes = data_atual.month
+        ano = data_atual.year
+
+
+
+        total = 0
+        desconto = 0
+        for i in queryset:
+            total = total +  ( i.chapa.valor * i.quantidade )
+
+            if obj.desconto == None:
+                desconto = desconto + 0
+            else:
+                desconto = desconto +  i.desconto
+
+        total = total - desconto
+        endereco = rua + ', ' + str(numero)
+
+
+
+        context = {
+            'nome': obj.nome,
+            'cliente': obj.cliente.nome,
+            'email': obj.cliente.email,
+            'telefone': obj.cliente.telefone,
+            'chapa': obj.chapa.nome,
+            'quantidade': obj.quantidade,
+            'valor_unidade': obj.chapa.valor,
+            'obs': obj.obs,
+            'dia': dia,
+            'mes': mes,
+            'ano': ano,
+            'id': id,
+            'endereco': endereco,
+            'cidade': cidade,
+            'estado': estado,
+            'bairro': bairro,
+
+            'desconto': desconto,
+            'valor_total': total,
+            'todos':queryset
+        }
+
+
+
+        return render(request,'layout_recibo_muitos.html',context)
+
+        type_messages = messages.INFO
+        message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
+
+        print("Ok")
+        obj.status = 4
+        obj.fineshed_at = timezone.now()
+        obj.save()
+
+
     self.message_user(request, message, type_messages)
 
 #nome que irá aparecer no display para o osuauro
