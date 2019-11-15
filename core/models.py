@@ -47,22 +47,31 @@ class Servico(models.Model):
     nome = models.CharField('Nome Serviço', max_length=200)
     cliente = models.ForeignKey(Cliente, verbose_name='Cliente', related_name='clientes',on_delete=models.PROTECT)
     chapa = models.ForeignKey(Chapa, verbose_name='Chapa', related_name='servico', on_delete=models.PROTECT)
-    quantidade = models.IntegerField('Quantidade')
-    desconto = models.FloatField('Desconto', null=True, blank=False)
+    quantidade = models.IntegerField('Quantidade',null=False)
     created_at = models.DateTimeField('Criado em', auto_now_add=True, null=True)
     uploaded_at = models.DateTimeField('Atualizado em', auto_now=True, null=True)
-    fineshed_at = models.DateTimeField('Recibo feito em', null=True, blank=True)
-    obs = models.TextField('Observações', null=True, blank=True)
 
     def __str__(self):
         return self.nome
 
+class Nota(models.Model):
+    # cliente = models.ForeignKey(Cliente, verbose_name='Cliente', related_name='clientes', on_delete=models.PROTECT)
+    desconto = models.FloatField('Desconto', null=True, blank=False,default=0)
+    numero = models.IntegerField('Numero Nota',null=False,blank=False,default=0)
+    created_at = models.DateTimeField('Criado em', auto_now_add=True, null=True)
+    uploaded_at = models.DateTimeField('Atualizado em', auto_now=True, null=True)
+    obs = models.TextField('Observações', null=True, blank=True)
+    servico = models.ManyToManyField(Servico, through='GrupoNotaServico', null=True)
+    def __str__(self):
+        return str(self.numero)
+
     STATUS_CHOICE = (
-        (0, 'Em adamento'),
-        (1, 'Cancelado'),
-        (2, 'Parado'),
-        (3, 'Pronto'),
-        (4, 'Entregue'),
+        (0, 'Em aberto'),
+        (1, 'Pago'),
 
     )
     status = models.IntegerField('Situação', choices=STATUS_CHOICE, default=0, blank=True)
+
+class GrupoNotaServico(models.Model):
+	nota = models.ForeignKey(Nota,on_delete=models.SET_NULL,null=True)
+	servico = models.ForeignKey(Servico,on_delete=models.SET_NULL,null=True)
