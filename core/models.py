@@ -72,6 +72,11 @@ class Nota(models.Model):
     )
     status = models.IntegerField('Situação', choices=STATUS_CHOICE, default=0, blank=True)
 
+    class Meta:
+        verbose_name = "Nota"
+        verbose_name_plural = "Notas"
+        ordering = ['-created_at']
+
 class GrupoNotaServico(models.Model):
 	nota = models.ForeignKey(Nota,on_delete=models.SET_NULL,null=True)
 	servico = models.ForeignKey(Servico,on_delete=models.SET_NULL,null=True)

@@ -130,7 +130,7 @@ def imprimir_recibo2(self, request, queryset):
                 desconto = desconto +  i.desconto
 
         total = total - desconto
-        endereco = rua + ', ' + str(numero)
+        endereco = rua
 
 
 
@@ -214,7 +214,7 @@ def imprimir_recibo(self, request, queryset):
                     #     desconto = desconto + i.desconto
 
                 # total = total - desconto
-                endereco = rua + ', ' + str(numero)
+                endereco = rua
 
                 context = {
                     'nome': obj.nome,
