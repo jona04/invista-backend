@@ -22,7 +22,7 @@ def imprimir_recibo2(self, request, queryset):
         mes = data_atual.month
         ano = data_atual.year
 
-        # id = 10000 + obj.id
+        id = 1000 + obj.id
         rua = obj.numero
         numero = obj.servico.cliente.bairro
         bairro = obj.servico.cliente.bairro
@@ -94,7 +94,7 @@ def imprimir_recibo2(self, request, queryset):
 
         obj = queryset[0]
 
-        id = 10000 + obj.id
+        id = 1000 + obj.id
         rua = obj.cliente.rua
         numero = obj.cliente.numero
         bairro = obj.cliente.bairro
@@ -180,7 +180,7 @@ def imprimir_recibo(self, request, queryset):
 
             for obj in nota.servico.all():
 
-                id = 10000 + nota.id
+                id = 1000 + nota.id
                 rua = obj.cliente.rua
                 numero = obj.cliente.numero
                 bairro = obj.cliente.bairro
@@ -254,7 +254,7 @@ def imprimir_recibo(self, request, queryset):
                 mes = data_atual.month
                 ano = data_atual.year
 
-                id = 10000 + nota.id
+                id = 1000 + nota.id
                 rua = obj.cliente.numero
                 numero = obj.cliente.bairro
                 bairro = obj.cliente.bairro
@@ -351,7 +351,7 @@ class ServicoAdmin(admin.ModelAdmin):
 class NotaAdmin(admin.ModelAdmin):
     exclude = ('numero',)
 
-    list_display = ['id','created_at']
+    list_display = ['id','status','created_at']
     search_fields = ['servico__cliente','servico','created_at']
     actions = [imprimir_recibo]
 
