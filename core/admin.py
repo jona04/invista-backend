@@ -198,10 +198,10 @@ def imprimir_recibo(self, request, queryset):
                 if bairro == None:
                     bairro = ''
 
-                data_atual = date.today()
-                dia = data_atual.day
-                mes = data_atual.month
-                ano = data_atual.year
+                # data_atual = date.today()
+                dia = obj.uploaded_at.day
+                mes = obj.uploaded_at.month
+                ano = obj.uploaded_at.year
 
                 total = 0
                 desconto = 0
@@ -249,10 +249,11 @@ def imprimir_recibo(self, request, queryset):
         else:
             for obj in nota.servico.all():
 
-                data_atual = date.today()
-                dia = data_atual.day
-                mes = data_atual.month
-                ano = data_atual.year
+                # data_atual = date.today()
+                # dia = data_atual.day
+                dia = obj.uploaded_at.day
+                mes = obj.uploaded_at.month
+                ano = obj.uploaded_at.year
 
                 id = 1000 + nota.id
                 rua = obj.cliente.numero
