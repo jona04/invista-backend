@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="list-group">
+    {% for cliente in page_obj %}
+    <a href="{{ cliente.get_absolute_url }}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ cliente.nome }}</h5>
+        </div>
+        <p class="mb-1">Telefone: {{ cliente.telefone }}</p>
+        <small>Cidade: {{ cliente.cidade }}</small>
+    </a>
+    {% endfor %}
+</div>
+
+
+
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item">
+        {% if page_obj.has_previous %}
+            <a class="page-link"  href="?page=1">&laquo; Primeiro</a>
+        {% endif %}
+    </li>
+      <li class="page-item">
+        {% if page_obj.has_previous %}
+            <a class="page-link"  href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+    </li>
+      <li class="page-item">
+          <a class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</a>
+      </li>
+
+
+    <li class="page-item">
+        {% if page_obj.has_next %}
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próximo</a>
+        {% endif %}
+
+    </li>
+      <li class="page-item">
+        {% if page_obj.has_next %}
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a>
+        {% endif %}
+
+    </li>
+
+  </ul>
+</nav>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ cliente.nome }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Cidade: {{ cliente.cidade }}</h6>
+    <p class="card-text">Telefone: {{ cliente.telefone }}</p>
+    <p><small>Endereço: {{ cliente.rua }}, {{ cliente.numero }}. Bairro: {{ cliente.bairro }}. Cep: {{ cliente.cep }}</small></p>
+    <a href="{{ cliente.get_list_notas }}" class="card-link">Lista de Notas</a>
+    <a href="{{ cliente.get_list_services }}" class="card-link">Lista de Serviços</a>
+  </div>
+</div>
+
+{% endblock %}

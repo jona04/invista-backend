@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="list-group">
+    {% for nota in notas %}
+        {% if nota.servico.first.cliente.id == cliente.id %}
+
+            <a href="{{ nota.get_absolute_url }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">Nota : {{ nota.numero }}</h5>
+                  <h5><small>{{ nota.created_at|date:"d-m-Y H:i:s"   }}</small></h5>
+                </div>
+                <p class="mb-1">Obs: {{ nota.obs }}</p>
+
+                <p class="mb-1">Cliente: {{ nota.servico.first.cliente }}</p>
+
+            </a>
+
+        {% endif %}
+
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}
