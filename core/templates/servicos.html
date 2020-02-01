@@ -4,6 +4,16 @@
 
 {% block content %}
 
+<form action="/busca_servico/" method="post">{% csrf_token %}
+    <div class="input-group">
+      <input type="text" class="form-control" name="campo_busca" placeholder="Pesquisar pelo nome servico ou do cliente...">
+      <span class="input-group-btn">
+        <button class="btn btn-success" type="submit">Buscar Serviço!</button>
+      </span>
+    </div><!-- /input-group -->
+</form>
+
+<br>
 
 <div class="list-group">
     {% for servico in page_obj %}

@@ -4,6 +4,9 @@
 
 {% block content %}
 
+
+<h5>Serviços:</h5>
+
 <div class="list-group">
   {% for servico in servicos %}
   <a href="#" class="list-group-item list-group-item-action">
@@ -13,7 +16,8 @@
     </div>
     <p class="mb-1">Cliente: {{ servico.cliente }}</p>
     <p class="mb-1">Chapa: {{ servico.chapa }}</p>
-    <small>Quantidade: {{ servico.quantidade }} chapas</small>
+    <small>Quantidade: {{ servico.quantidade }} chapas</small><br>
+    <small>Valor: R$ {{ servico.valor }} reais</small>
   </a>
   {% endfor %}
 </div>

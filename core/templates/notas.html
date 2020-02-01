@@ -3,6 +3,18 @@
 {% load static %}
 
 {% block content %}
+
+<form action="/busca_nota/" method="post">{% csrf_token %}
+    <div class="input-group">
+      <input type="text" class="form-control" name="campo_busca" placeholder="Pesquisar pelo número da nota...">
+      <span class="input-group-btn">
+        <button class="btn btn-success" type="submit">Buscar Nota!</button>
+      </span>
+    </div><!-- /input-group -->
+</form>
+
+<br>
+
 <div class="list-group">
     {% for nota in page_obj %}
     <a href="{{ nota.get_absolute_url }}" class="list-group-item list-group-item-action">

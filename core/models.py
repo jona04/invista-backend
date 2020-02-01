@@ -72,6 +72,14 @@ class Servico(models.Model):
     def __str__(self):
         return self.nome
 
+    def valor(self):
+        return self.quantidade * self.chapa.valor
+
+    class Meta:
+        verbose_name = "Servico"
+        verbose_name_plural = "Servicos"
+        ordering = ['-created_at']
+
 class Nota(models.Model):
     # cliente = models.ForeignKey(Cliente, verbose_name='Cliente', related_name='clientes', on_delete=models.PROTECT)
     desconto = models.FloatField('Desconto', null=True, blank=False,default=0)
