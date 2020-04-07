@@ -1,4 +1,5 @@
 invista/local_settings.py
+invista/settings.py
 *.pyc
 staticfiles
 static
