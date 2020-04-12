@@ -1,5 +1,5 @@
 
-from .serializers import ChapaSerializer,NotaSerializer,ClienteSerializer,ServicoSerializer
+from .serializers import ChapaSerializer,NotaSerializer,ClienteSerializer,ListaClienteSerializer,ServicoSerializer
 from core.models import Chapa,Nota,Cliente,Servico
 from rest_framework import viewsets, filters
 
@@ -24,15 +24,42 @@ class NotaViewSet(viewsets.ModelViewSet):
     search_fields = ('numero','obs')
 
 class ClienteViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
+
+    #         return ClienteSerializer
+    #     elif self.request.query_params.get('oi') == 2:
+    #         serializer_class = ListaClienteSerializer
+    #     else:
+    #         serializer_class = ClienteSerializer
+    #
+
     queryset = Cliente.objects.all()
-    serializer_class = ClienteSerializer
+    # serializer_class = ListaClienteSerializer
 
     filter_backends = (filters.SearchFilter,)
     search_fields = ('nome', 'cidade')
 
+    def get_serializer_class(self):
+        tipo_serializer = self.request.query_params.get('tipo_serializer')
+        if tipo_serializer == 'lista':
+            return ListaClienteSerializer
+        else:
+            return ClienteSerializer
+
+
+    # def get_queryset(self):
+    #     longitude = self.request.query_params.get('oi')
+    #     print(longitude)
+    #     return Cliente.objects.all()
+
+class ListaClienteViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Cliente.objects.all()
+    serializer_class = ListaClienteSerializer
+
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('nome', 'cidade')
 
 class ServicoViewSet(viewsets.ModelViewSet):
     """

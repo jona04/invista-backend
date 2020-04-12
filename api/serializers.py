@@ -27,3 +27,9 @@ class ClienteSerializer(serializers.ModelSerializer):
         model = Cliente
         fields = ('id', 'nome', 'email','telefone','cnpj','cpf','rua','bairro','numero','cidade','estado','cep','created_at','uploaded_at','nota')
 
+
+class ListaClienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cliente
+        fields = ('id', 'nome', 'email','telefone','cnpj','cpf','rua','bairro','numero','cidade','estado','cep','created_at','uploaded_at')
+
