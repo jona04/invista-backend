@@ -18,7 +18,7 @@ class NotaSerializer(serializers.ModelSerializer):
     servico = ServicoSerializer(many=True)
     class Meta:
         model = Nota
-        fields = ('id', 'desconto', 'numero','obs','servico','created_at','uploaded_at')
+        fields = ('id', 'desconto', 'numero','obs','servico','status','created_at','uploaded_at')
 
 class ClienteSerializer(serializers.ModelSerializer):
     nota = NotaSerializer(many=True)
