@@ -6,10 +6,16 @@ class ChapaSerializer(serializers.ModelSerializer):
         model = Chapa
         fields = ('id', 'nome', 'valor','estoque','obs','created_at','uploaded_at')
 
+class NotaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Nota
+        fields = ('id', 'desconto', 'numero','obs','servico','created_at','uploaded_at')
+
 class ClienteSerializer(serializers.ModelSerializer):
+    nota = NotaSerializer(read_only=True, many=True)
     class Meta:
         model = Cliente
-        fields = ('id', 'nome', 'email','telefone','cnpj','cpf','rua','bairro','numero','cidade','estado','cep','created_at','uploaded_at','nota')
+        fields = ('id', 'nome', 'email','telefone','cnpj','cpf','rua','bairro','numero','cidade','estado','cep','created_at','uploaded_at',nota)
 
 class ServicoSerializer(serializers.ModelSerializer):
     cliente = serializers.StringRelatedField()
@@ -18,7 +24,3 @@ class ServicoSerializer(serializers.ModelSerializer):
         model = Servico
         fields = ('id', 'nome', 'cliente','chapa','quantidade','created_at','uploaded_at')
 
-class NotaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Nota
-        fields = ('id', 'desconto', 'numero','obs','servico','created_at','uploaded_at')
