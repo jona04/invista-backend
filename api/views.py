@@ -37,6 +37,7 @@ class ClienteViewSet(viewsets.ModelViewSet):
 
     filter_backends = (filters.SearchFilter,)
     search_fields = ('nome', 'cidade')
+    ordering = ('nome',)
 
     def get_serializer_class(self):
         tipo_serializer = self.request.query_params.get('tipo_serializer')
