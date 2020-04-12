@@ -381,7 +381,7 @@ class NotaAdmin(admin.ModelAdmin):
     exclude = ('numero',)
 
     list_display = ['id','numero','status','created_at']
-    search_fields = ['servico__cliente','servico','created_at']
+    search_fields = ['id','servico__cliente__nome','created_at']
     actions = [imprimir_recibo]
 
     list_filter = (
