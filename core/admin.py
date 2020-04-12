@@ -334,11 +334,11 @@ def atualizar(self, request, queryset):
             if nota.servico.all()[0].cliente == cliente_atual:
                 cliente_atual.nota.add(nota)
                 type_messages = messages.INFO
-                message = "CLiente atualizado com as notas"
+                message = "CLiente atualizado com as notas %s" % cliente_atual
                 print(nota.servico)
             else:
                 type_messages = messages.INFO
-                message = "Todas as notas ja estao atualizadas para esse clietne"
+                message = "Todas as notas ja estao atualizadas para esse cliente: %s" % cliente_atual
         except:
             type_messages = messages.ERROR
             message = "Erro ao verificar nota %s" % nota
