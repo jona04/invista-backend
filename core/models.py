@@ -119,18 +119,18 @@ class Nota(models.Model):
 
 
 class GrupoClienteNota(models.Model):
-    nota = models.ForeignKey(Nota,on_delete=models.SET_NULL,null=True)
-    cliente = models.ForeignKey(Cliente,on_delete=models.SET_NULL,null=True)
+    nota = models.ForeignKey(Nota,on_delete=models.PROTECT,null=True)
+    cliente = models.ForeignKey(Cliente,on_delete=models.PROTECT,null=True)
     def __str__(self):
-        return str(self.cliente.id)
+        return str(self.cliente.nome)
 
 
 
 class GrupoNotaServico(models.Model):
-    nota = models.ForeignKey(Nota,on_delete=models.SET_NULL,null=True)
-    servico = models.ForeignKey(Servico,on_delete=models.SET_NULL,null=True)
+    nota = models.ForeignKey(Nota,on_delete=models.PROTECT,null=True)
+    servico = models.ForeignKey(Servico,on_delete=models.PROTECT,null=True)
     def __str__(self):
-        return str(self.servico.id)
+        return str(self.nota.id)
 
     def save(self, *args, **kwargs):
         super(GrupoNotaServico, self).save(*args, **kwargs)
