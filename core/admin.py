@@ -330,9 +330,19 @@ def atualizar(self, request, queryset):
     cliente_atual = queryset[0]
     notas = Nota.objects.all()
     for nota in notas:
-        # if nota.servico.first.cliente.id == cliente.id:
-        if nota.servico.all()[0].cliente == cliente_atual:
-            cliente_atual.nota.add(nota)
+        try:
+            if nota.servico.all()[0].cliente == cliente_atual:
+                cliente_atual.nota.add(nota)
+                type_messages = messages.INFO
+                message = "CLiente atualizado com as notas"
+                print(nota.servico)
+            else:
+                type_messages = messages.INFO
+                message = "Todas as notas ja estao atualizadas para esse clietne"
+        except:
+            type_messages = messages.ERROR
+            message = "Erro ao verificar nota %s" % nota
+    self.message_user(request, message, type_messages)
 
 atualizar.short_description = "Atualizar Nota"
 
