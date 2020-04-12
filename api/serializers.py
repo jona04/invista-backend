@@ -9,7 +9,7 @@ class ChapaSerializer(serializers.ModelSerializer):
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ('id', 'nome', 'email','telefone','cnpj','cpf','rua','bairro','numero','cidade','estado','cep','created_at','uploaded_at')
+        fields = ('id', 'nome', 'email','telefone','cnpj','cpf','rua','bairro','numero','cidade','estado','cep','created_at','uploaded_at','nota')
 
 class ServicoSerializer(serializers.ModelSerializer):
     cliente = serializers.StringRelatedField()

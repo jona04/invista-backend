@@ -29,9 +29,8 @@ SECRET_KEY = '_r4&s0$bie*3hh656y5z(m%)8v)jb@h7()vwjnfx%ikmpb!zl3'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-'invistasite.herokuapp.com',
-'127.0.0.1'
-'localhost'
+    'invistasite.herokuapp.com',
+    '127.0.0.1'
 ]
 
 # Application definition

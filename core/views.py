@@ -42,6 +42,8 @@ def notas(request):
     return render(request, 'notas.html', {'page_obj': page_obj})
 
     # return render(request, 'notas.html', context)
+def get_number(request):
+    print("number")
 
 def nota_especifica(request,id):
     nota = Nota.objects.get(pk=id)

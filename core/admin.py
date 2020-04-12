@@ -6,7 +6,7 @@ from django.contrib.admin import DateFieldListFilter
 
 # Register your models here.
 
-from .models import Cliente,Chapa,Servico,Nota,GrupoNotaServico
+from .models import Cliente,Chapa,Servico,Nota,GrupoNotaServico, GrupoClienteNota
 from datetime import date
 
 admin.site.disable_action('delete_selected')
@@ -326,15 +326,31 @@ def imprimir_recibo(self, request, queryset):
 imprimir_recibo.short_description = "Imprimir Nota de Entrega"
 
 
+def atualizar(self, request, queryset):
+    cliente_atual = queryset[0]
+    notas = Nota.objects.all()
+    for nota in notas:
+        # if nota.servico.first.cliente.id == cliente.id:
+        if nota.servico.all()[0].cliente == cliente_atual:
+            cliente_atual.nota.add(nota)
+
+atualizar.short_description = "Atualizar Nota"
+
+
 class GrupoNotaServicoInline(admin.TabularInline):
     model = GrupoNotaServico
     extra = 1
 
+class GrupoClienteNotaInline(admin.TabularInline):
+    model = GrupoClienteNota
+    extra = 1
 
 
 class ClienteAdmin(admin.ModelAdmin):
-	list_display = ['nome','email','telefone','cidade','estado']
-	search_fields = ['nome']
+    list_display = ['nome','email','telefone','cidade','estado']
+    search_fields = ['nome']
+    inlines = (GrupoClienteNotaInline,)
+    actions = [atualizar]
 
 class ChapaAdmin(admin.ModelAdmin):
 	list_display = ['nome','valor','estoque']
@@ -352,7 +368,7 @@ class ServicoAdmin(admin.ModelAdmin):
 class NotaAdmin(admin.ModelAdmin):
     exclude = ('numero',)
 
-    list_display = ['id','status','created_at']
+    list_display = ['id','numero','status','created_at']
     search_fields = ['servico__cliente','servico','created_at']
     actions = [imprimir_recibo]
 
