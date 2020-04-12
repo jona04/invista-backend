@@ -359,8 +359,10 @@ class GrupoClienteNotaInline(admin.TabularInline):
 class ClienteAdmin(admin.ModelAdmin):
     list_display = ['nome','email','telefone','cidade','estado']
     search_fields = ['nome']
-    inlines = (GrupoClienteNotaInline,)
+    # inlines = (GrupoClienteNotaInline,)
     actions = [atualizar]
+    readonly_fields = ["nota"]
+
 
 class ChapaAdmin(admin.ModelAdmin):
 	list_display = ['nome','valor','estoque']
