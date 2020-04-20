@@ -16,7 +16,8 @@ STATICFILES_DIRS = (
 )
 
 CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:3000'
+    'http://127.0.0.1:3000',
+    'https://cranky-varahamihira-fbd921.netlify.app'
 ]
 
 # Quick-start development settings - unsuitable for production
