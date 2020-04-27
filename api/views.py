@@ -1,7 +1,7 @@
-
-from .serializers import ChapaSerializer,NotaSerializer,ClienteSerializer,ListaClienteSerializer,ServicoSerializer
-from core.models import Chapa,Nota,Cliente,Servico
+from .serializers import ChapaSerializer, NotaSerializer, ClienteSerializer, ListaClienteSerializer, ServicoSerializer
+from core.models import Chapa, Nota, Cliente, Servico
 from rest_framework import viewsets, filters
+
 
 class ChapaViewSet(viewsets.ModelViewSet):
     """
@@ -11,7 +11,8 @@ class ChapaViewSet(viewsets.ModelViewSet):
     serializer_class = ChapaSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('nome','obs')
+    search_fields = ('nome', 'obs')
+
 
 class NotaViewSet(viewsets.ModelViewSet):
     """
@@ -21,10 +22,10 @@ class NotaViewSet(viewsets.ModelViewSet):
     serializer_class = NotaSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('numero','obs')
+    search_fields = ('numero', 'obs')
+
 
 class ClienteViewSet(viewsets.ModelViewSet):
-
     #         return ClienteSerializer
     #     elif self.request.query_params.get('oi') == 2:
     #         serializer_class = ListaClienteSerializer
@@ -46,11 +47,11 @@ class ClienteViewSet(viewsets.ModelViewSet):
         else:
             return ClienteSerializer
 
-
     # def get_queryset(self):
     #     longitude = self.request.query_params.get('oi')
     #     print(longitude)
     #     return Cliente.objects.all()
+
 
 class ListaClienteViewSet(viewsets.ModelViewSet):
     """
@@ -61,6 +62,7 @@ class ListaClienteViewSet(viewsets.ModelViewSet):
 
     filter_backends = (filters.SearchFilter,)
     search_fields = ('nome', 'cidade')
+
 
 class ServicoViewSet(viewsets.ModelViewSet):
     """

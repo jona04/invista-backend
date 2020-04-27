@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -67,9 +66,14 @@ class Migration(migrations.Migration):
                 ('uploaded_at', models.DateTimeField(auto_now=True, null=True, verbose_name='Atualizado em')),
                 ('fineshed_at', models.DateTimeField(blank=True, null=True, verbose_name='Finalizado em')),
                 ('obs', models.TextField(blank=True, null=True, verbose_name='Observações')),
-                ('status', models.IntegerField(blank=True, choices=[(0, 'Em adamento'), (1, 'Cancelado'), (2, 'Parado'), (3, 'Pronto'), (4, 'Entregue')], default=0, verbose_name='Situação')),
-                ('chapa', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='servico', to='core.Chapa', verbose_name='Chapa')),
-                ('cliente', models.ForeignKey(blank=True, default=0, on_delete=django.db.models.deletion.PROTECT, related_name='clientes', to='core.Cliente', verbose_name='Cliente')),
+                ('status', models.IntegerField(blank=True, choices=[(0, 'Em adamento'), (1, 'Cancelado'), (2, 'Parado'),
+                                                                    (3, 'Pronto'), (4, 'Entregue')], default=0,
+                                               verbose_name='Situação')),
+                ('chapa',
+                 models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='servico', to='core.Chapa',
+                                   verbose_name='Chapa')),
+                ('cliente', models.ForeignKey(blank=True, default=0, on_delete=django.db.models.deletion.PROTECT,
+                                              related_name='clientes', to='core.Cliente', verbose_name='Cliente')),
             ],
         ),
     ]

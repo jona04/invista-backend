@@ -1,6 +1,6 @@
-
 import os
-
+# Update database configuration with $DATABASE_URL.
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +31,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'invistasite.herokuapp.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    'localhost'
 ]
 
 # Application definition
@@ -62,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL=True
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'invista.urls'
 
@@ -84,25 +85,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'invista.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# HEROKU SETTINGS
 
-
-#HEROKU SETTINGS
-
-# Update database configuration with $DATABASE_URL.
-import dj_database_url
-
-#db_from_env = dj_database_url.config()
-#DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config()
+# DATABASES['default'].update(db_from_env)
 
 DATABASES = {
     'default': dj_database_url.config()
-    }
-
-
+}
 
 #
 #
@@ -132,7 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -151,11 +143,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-
-
-try:
-    from invista.local_settings import *
-except ImportError:
-    pass
