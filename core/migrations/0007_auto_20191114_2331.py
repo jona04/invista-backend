@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0006_auto_20191023_1458'),
     ]
@@ -41,7 +40,8 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True, verbose_name='Criado em')),
                 ('uploaded_at', models.DateTimeField(auto_now=True, null=True, verbose_name='Atualizado em')),
                 ('obs', models.TextField(blank=True, null=True, verbose_name='Observações')),
-                ('status', models.IntegerField(blank=True, choices=[(0, 'Em aberto'), (1, 'Pago')], default=0, verbose_name='Situação')),
+                ('status', models.IntegerField(blank=True, choices=[(0, 'Em aberto'), (1, 'Pago')], default=0,
+                                               verbose_name='Situação')),
                 ('servico', models.ManyToManyField(null=True, through='core.GrupoNotaServico', to='core.Servico')),
             ],
         ),

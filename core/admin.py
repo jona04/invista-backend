@@ -1,4 +1,4 @@
-from django.contrib import admin,messages
+from django.contrib import admin, messages
 from django.utils import timezone
 from django.shortcuts import render
 
@@ -6,7 +6,7 @@ from django.contrib.admin import DateFieldListFilter
 
 # Register your models here.
 
-from .models import Cliente,Chapa,Servico,Nota,GrupoNotaServico, GrupoClienteNota
+from .models import Cliente, Chapa, Servico, Nota, GrupoNotaServico, GrupoClienteNota
 from datetime import date
 
 admin.site.disable_action('delete_selected')
@@ -15,7 +15,6 @@ admin.site.disable_action('delete_selected')
 def imprimir_recibo2(self, request, queryset):
     if (len(queryset) == 1):
         obj = queryset[0]
-
 
         data_atual = date.today()
         dia = data_atual.day
@@ -29,19 +28,19 @@ def imprimir_recibo2(self, request, queryset):
         cidade = obj.servico.cliente.cidade
         estado = obj.servico.cliente.estado
 
-        if cidade == None:
+        if cidade is None:
             cidade = ''
-        if estado == None:
+        if estado is None:
             estado = ''
-        if rua == None:
+        if rua is None:
             rua = ''
-        if numero == None:
+        if numero is None:
             numero = ''
-        if bairro == None:
+        if bairro is None:
             bairro = ''
 
         endereco = rua + ', ' + str(numero)
-        # desconto = 0
+        desconto = 0
         # if obj.desconto == None:
         #     desconto = 0
         # else:
@@ -55,19 +54,17 @@ def imprimir_recibo2(self, request, queryset):
             'chapa': obj.servico.chapa.nome,
             'quantidade': obj.servico.quantidade,
             'valor_unidade': obj.servico.chapa.valor,
-            'obs':obj.obs,
-            'dia':dia,
-            'mes':mes,
-            'ano':ano,
+            'obs': obj.obs,
+            'dia': dia,
+            'mes': mes,
+            'ano': ano,
             'id': id,
             'endereco': endereco,
-            'cidade' : cidade,
-            'estado' : estado,
-            'bairro':bairro,
+            'cidade': cidade,
+            'estado': estado,
+            'bairro': bairro,
 
-
-
-            'desconto':desconto,
+            'desconto': desconto,
             'valor_total': obj.servico.quantidade * obj.servico.chapa.valor,
 
         }
@@ -101,15 +98,15 @@ def imprimir_recibo2(self, request, queryset):
         cidade = obj.cliente.cidade
         estado = obj.cliente.estado
 
-        if cidade == None:
+        if cidade is None:
             cidade = ''
-        if estado == None:
+        if estado is None:
             estado = ''
-        if rua == None:
+        if rua is None:
             rua = ''
-        if numero == None:
+        if numero is None:
             numero = ''
-        if bairro == None:
+        if bairro is None:
             bairro = ''
 
         data_atual = date.today()
@@ -117,22 +114,18 @@ def imprimir_recibo2(self, request, queryset):
         mes = data_atual.month
         ano = data_atual.year
 
-
-
         total = 0
         desconto = 0
         for i in queryset:
-            total = total +  ( i.chapa.valor * i.quantidade )
+            total = total + (i.chapa.valor * i.quantidade)
 
-            if i.desconto == None:
+            if i.desconto is None:
                 desconto = desconto + 0
             else:
-                desconto = desconto +  i.desconto
+                desconto = desconto + i.desconto
 
         total = total - desconto
         endereco = rua
-
-
 
         context = {
             'nome': obj.nome,
@@ -154,12 +147,10 @@ def imprimir_recibo2(self, request, queryset):
 
             'desconto': desconto,
             'valor_total': total,
-            'todos':queryset
+            'todos': queryset
         }
 
-
-
-        return render(request,'layout_recibo_muitos.html',context)
+        return render(request, 'layout_recibo_muitos.html', context)
 
         type_messages = messages.INFO
         message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
@@ -168,7 +159,6 @@ def imprimir_recibo2(self, request, queryset):
         obj.status = 4
         obj.fineshed_at = timezone.now()
         obj.save()
-
 
     self.message_user(request, message, type_messages)
 
@@ -187,15 +177,15 @@ def imprimir_recibo(self, request, queryset):
                 cidade = obj.cliente.cidade
                 estado = obj.cliente.estado
 
-                if cidade == None:
+                if cidade is None:
                     cidade = ''
-                if estado == None:
+                if estado is None:
                     estado = ''
-                if rua == None:
+                if rua is None:
                     rua = ''
-                if numero == None:
+                if numero is None:
                     numero = ''
-                if bairro == None:
+                if bairro is None:
                     bairro = ''
 
                 # data_atual = date.today()
@@ -262,15 +252,15 @@ def imprimir_recibo(self, request, queryset):
                 cidade = obj.cliente.cidade
                 estado = obj.cliente.estado
 
-                if cidade == None:
+                if cidade is None:
                     cidade = ''
-                if estado == None:
+                if estado is None:
                     estado = ''
-                if rua == None:
+                if rua is None:
                     rua = ''
-                if numero == None:
+                if numero is None:
                     numero = ''
-                if bairro == None:
+                if bairro is None:
                     bairro = ''
 
                 endereco = rua
@@ -288,19 +278,17 @@ def imprimir_recibo(self, request, queryset):
                     'chapa': obj.chapa.nome,
                     'quantidade': obj.quantidade,
                     'valor_unidade': obj.chapa.valor,
-                    'obs':nota.obs,
-                    'dia':dia,
-                    'mes':mes,
-                    'ano':ano,
+                    'obs': nota.obs,
+                    'dia': dia,
+                    'mes': mes,
+                    'ano': ano,
                     'id': id,
                     'endereco': endereco,
-                    'cidade' : cidade,
-                    'estado' : estado,
-                    'bairro':bairro,
+                    'cidade': cidade,
+                    'estado': estado,
+                    'bairro': bairro,
 
-
-
-                    'desconto':nota.desconto,
+                    'desconto': nota.desconto,
                     'valor_total': obj.quantidade * obj.chapa.valor,
 
                 }
@@ -322,7 +310,8 @@ def imprimir_recibo(self, request, queryset):
 
     self.message_user(request, message, type_messages)
 
-#nome que irá aparecer no display para o osuauro
+
+# nome que irá aparecer no display para o osuauro
 imprimir_recibo.short_description = "Imprimir Nota de Entrega"
 
 
@@ -339,10 +328,11 @@ def atualizar(self, request, queryset):
             else:
                 type_messages = messages.INFO
                 message = "Todas as notas ja estao atualizadas para esse cliente: %s" % cliente_atual
-        except:
+        except NameError:
             type_messages = messages.ERROR
             message = "Erro ao verificar nota %s" % nota
     self.message_user(request, message, type_messages)
+
 
 atualizar.short_description = "Atualizar Nota"
 
@@ -351,13 +341,14 @@ class GrupoNotaServicoInline(admin.TabularInline):
     model = GrupoNotaServico
     extra = 1
 
+
 class GrupoClienteNotaInline(admin.TabularInline):
     model = GrupoClienteNota
     extra = 1
 
 
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ['nome','email','telefone','cidade','estado']
+    list_display = ['nome', 'email', 'telefone', 'cidade', 'estado']
     search_fields = ['nome']
     # inlines = (GrupoClienteNotaInline,)
     actions = [atualizar]
@@ -365,23 +356,25 @@ class ClienteAdmin(admin.ModelAdmin):
 
 
 class ChapaAdmin(admin.ModelAdmin):
-	list_display = ['nome','valor','estoque']
-	search_fields = ['nome']
+    list_display = ['nome', 'valor', 'estoque']
+    search_fields = ['nome']
+
 
 class ServicoAdmin(admin.ModelAdmin):
-    list_display = ['nome','cliente','chapa','quantidade','created_at']
-    search_fields = ['nome','cliente__nome','created_at']
+    list_display = ['nome', 'cliente', 'chapa', 'quantidade', 'created_at']
+    search_fields = ['nome', 'cliente__nome', 'created_at']
     # actions = [imprimir_recibo]
 
     list_filter = (
         ('created_at', DateFieldListFilter),
     )
 
+
 class NotaAdmin(admin.ModelAdmin):
     exclude = ('numero',)
 
-    list_display = ['id','numero','status','created_at']
-    search_fields = ['id','servico__cliente__nome','created_at']
+    list_display = ['id', 'numero', 'status', 'created_at']
+    search_fields = ['id', 'servico__cliente__nome', 'created_at']
     actions = [imprimir_recibo]
 
     list_filter = (
@@ -390,8 +383,7 @@ class NotaAdmin(admin.ModelAdmin):
     inlines = (GrupoNotaServicoInline,)
 
 
-
-admin.site.register(Cliente,ClienteAdmin)
-admin.site.register(Chapa,ChapaAdmin)
-admin.site.register(Servico,ServicoAdmin)
-admin.site.register(Nota,NotaAdmin)
+admin.site.register(Cliente, ClienteAdmin)
+admin.site.register(Chapa, ChapaAdmin)
+admin.site.register(Servico, ServicoAdmin)
+admin.site.register(Nota, NotaAdmin)

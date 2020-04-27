@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0003_auto_20191018_1607'),
     ]
@@ -14,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='servico',
             name='cliente',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='clientes', to='core.Cliente', verbose_name='Cliente'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='clientes',
+                                    to='core.Cliente', verbose_name='Cliente'),
         ),
     ]

@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0010_remove_nota_numero'),
     ]
@@ -19,7 +18,8 @@ class Migration(migrations.Migration):
             name='GrupoClienteNota',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cliente', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.Cliente')),
+                ('cliente',
+                 models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.Cliente')),
                 ('nota', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.Nota')),
             ],
         ),
