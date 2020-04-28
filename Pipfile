@@ -32,6 +32,7 @@ whitenoise = "*"
 pytest-django = "*"
 psycopg2-binary = "*"
 python-decouple = "*"
+django-s3-folder-storage = "*"
 
 [requires]
 python_version = "3.8"
