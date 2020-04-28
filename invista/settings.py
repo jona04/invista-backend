@@ -5,13 +5,16 @@ from functools import partial
 import dj_database_url
 from decouple import config, Csv
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:3000',
@@ -84,13 +87,6 @@ WSGI_APPLICATION = 'invista.wsgi.application'
 
 # HEROKU SETTINGS
 
-# db_from_env = dj_database_url.config()
-# DATABASES['default'].update(db_from_env)
-
-# DATABASES = {
-#     'default': dj_database_url.config()
-# }
-
 default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 
 parse_database = partial(dj_database_url.parse, conn_max_age=600)
@@ -98,9 +94,6 @@ parse_database = partial(dj_database_url.parse, conn_max_age=600)
 DATABASES = {
     'default': config('DATABASE_URL', default=default_db_url, cast=parse_database)
 }
-
-# Password validation
-# https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -173,9 +166,9 @@ if AWS_ACCESS_KEY_ID:
     INSTALLED_APPS.append('s3_folder_storage')
     INSTALLED_APPS.append('storages')
 
-# SENTRY_DNS = config('SENTRY_DSN', default=None)
-# if SENTRY_DNS:
-#     sentry_sdk.init(
-#         dsn=SENTRY_DNS,
-#         integrations=[DjangoIntegration()]
-#     )
+SENTRY_DNS = config('SENTRY_DSN', default=None)
+if SENTRY_DNS:
+    sentry_sdk.init(
+        dsn=SENTRY_DNS,
+        integrations=[DjangoIntegration()]
+    )
