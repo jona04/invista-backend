@@ -28,11 +28,11 @@ s3transfer = "*"
 six = "*"
 sqlparse = "*"
 urllib3 = "*"
-whitenoise = "*"
 pytest-django = "*"
 psycopg2-binary = "*"
 python-decouple = "*"
 django-s3-folder-storage = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
