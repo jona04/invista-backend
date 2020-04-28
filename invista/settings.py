@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'collectfast',
     'django.contrib.staticfiles',
     'mathfilters',
     'rest_framework',
@@ -140,6 +141,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+COLLECTFAST_ENABLED = False
+
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 
 # configuracao no S3 AWS
@@ -153,6 +156,8 @@ if AWS_ACCESS_KEY_ID:
     AWS_QUERYSTRING_AUTH = True  # gerar url assinadas
     AWS_S3_CUSTOM_DOMAIN = None  # utilizar proprio dominio do s3
     AWS_DEFAULT_ACL = 'private'  # arquivos no s3 privados (nao publicos)
+
+    COLLECTFAST_ENABLED = True
 
     # Static Assets
 
