@@ -1,5 +1,7 @@
 import os
 # Update database configuration with $DATABASE_URL.
+from functools import partial
+
 import dj_database_url
 from decouple import config, Csv
 
@@ -90,18 +92,18 @@ WSGI_APPLICATION = 'invista.wsgi.application'
 # db_from_env = dj_database_url.config()
 # DATABASES['default'].update(db_from_env)
 
+# DATABASES = {
+#     'default': dj_database_url.config()
+# }
+
+default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
+parse_database = partial(dj_database_url.parse, conn_max_age=600)
+
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': config('DATABASE_URL', default=default_db_url, cast=parse_database)
 }
 
-#
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
 
 # Password validation
