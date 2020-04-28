@@ -1,6 +1,7 @@
 import os
 # Update database configuration with $DATABASE_URL.
 import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +28,7 @@ CORS_ORIGIN_WHITELIST = [
 SECRET_KEY = '_r4&s0$bie*3hh656y5z(m%)8v)jb@h7()vwjnfx%ikmpb!zl3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = [
     'invistasite.herokuapp.com',
