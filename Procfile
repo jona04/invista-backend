@@ -1,1 +1,1 @@
-web: gunicorn invista.wsgi
+web: gunicorn invista.wsgi --log-file -

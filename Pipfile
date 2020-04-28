@@ -5,6 +5,8 @@ verify_ssl = true
 
 [dev-packages]
 flake8 = "*"
+pytest-cov = "*"
+codecov = "*"
 
 [packages]
 boto3 = "*"
@@ -20,7 +22,6 @@ docutils = "*"
 gunicorn = "*"
 jmespath = "*"
 mysqlclient = "*"
-psycopg2 = "*"
 python-dateutil = "*"
 pytz = "*"
 s3transfer = "*"
@@ -29,6 +30,7 @@ sqlparse = "*"
 urllib3 = "*"
 whitenoise = "*"
 pytest-django = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"
