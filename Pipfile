@@ -36,6 +36,7 @@ requests = "*"
 collectfast = "*"
 django-debug-toolbar = "*"
 sentry-sdk = "==0.14.3"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.8"
