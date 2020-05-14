@@ -7,6 +7,7 @@ verify_ssl = true
 flake8 = "*"
 pytest-cov = "*"
 codecov = "*"
+pytest = "*"
 
 [packages]
 boto3 = "*"
@@ -21,7 +22,6 @@ djangorestframework = "*"
 docutils = "*"
 gunicorn = "*"
 jmespath = "*"
-mysqlclient = "*"
 python-dateutil = "*"
 pytz = "*"
 s3transfer = "*"
@@ -36,7 +36,7 @@ requests = "*"
 collectfast = "*"
 django-debug-toolbar = "*"
 sentry-sdk = "==0.14.4"
-djangorestframework-jwt = "*"
+djangorestframework-simplejwt = "*"
 
 [requires]
 python_version = "3.8"

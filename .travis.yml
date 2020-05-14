@@ -23,7 +23,7 @@ before_script:
 
 script:
   - pipenv run flake8
-  - pipenv run pytest --cov=invista
+#  - pipenv run pytest --cov=invista
 
 after_success:
   - pipenv run codecov
