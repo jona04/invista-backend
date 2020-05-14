@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from core.models import Chapa, Nota, Servico, Cliente
 
+
 class ChapaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapa
