@@ -68,7 +68,8 @@ class Migration(migrations.Migration):
                 ('valor', models.FloatField(blank=True, null=True, verbose_name='Valor')),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True, verbose_name='Criado em')),
                 ('uploaded_at', models.DateTimeField(auto_now=True, null=True, verbose_name='Atualizado em')),
-                ('origem', models.IntegerField(blank=True, choices=[(0, 'INVISTA'), (1, 'THE BRINDES')], default=0, verbose_name='Origem')),
+                ('origem', models.IntegerField(blank=True, choices=[(0, 'INVISTA'), (1, 'THE BRINDES')], default=0,
+                                               verbose_name='Origem')),
             ],
             options={
                 'verbose_name': 'Saida',
@@ -84,8 +85,10 @@ class Migration(migrations.Migration):
                 ('quantidade', models.IntegerField(verbose_name='Quantidade')),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True, verbose_name='Criado em')),
                 ('uploaded_at', models.DateTimeField(auto_now=True, null=True, verbose_name='Atualizado em')),
-                ('chapa', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='servico', to='core.Chapa', verbose_name='Chapa')),
-                ('cliente', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='clientes', to='core.Cliente', verbose_name='Cliente')),
+                ('chapa', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='servico',
+                                            to='core.Chapa', verbose_name='Chapa')),
+                ('cliente', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='clientes',
+                                              to='core.Cliente', verbose_name='Cliente')),
             ],
             options={
                 'verbose_name': 'Servico',
@@ -101,7 +104,8 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True, verbose_name='Criado em')),
                 ('uploaded_at', models.DateTimeField(auto_now=True, null=True, verbose_name='Atualizado em')),
                 ('obs', models.TextField(blank=True, null=True, verbose_name='Observações')),
-                ('status', models.IntegerField(blank=True, choices=[(0, 'Em aberto'), (1, 'Pago')], default=0, verbose_name='Situação')),
+                ('status', models.IntegerField(blank=True, choices=[(0, 'Em aberto'), (1, 'Pago')], default=0,
+                                               verbose_name='Situação')),
                 ('servico', models.ManyToManyField(null=True, through='core.GrupoNotaServico', to='core.Servico')),
             ],
             options={
@@ -124,7 +128,8 @@ class Migration(migrations.Migration):
             name='GrupoClienteNota',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cliente', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='core.Cliente')),
+                ('cliente', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT,
+                                              to='core.Cliente')),
                 ('nota', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='core.Nota')),
             ],
         ),

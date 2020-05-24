@@ -18,7 +18,8 @@ class Migration(migrations.Migration):
                 ('valor', models.FloatField(blank=True, null=True, verbose_name='Valor')),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True, verbose_name='Criado em')),
                 ('uploaded_at', models.DateTimeField(auto_now=True, null=True, verbose_name='Atualizad em')),
-                ('origem', models.IntegerField(blank=True, choices=[(0, 'INVISTA'), (1, 'THE BRINDES')], default=0, verbose_name='Origem')),
+                ('origem', models.IntegerField(blank=True, choices=[(0, 'INVISTA'), (1, 'THE BRINDES')], default=0,
+                                               verbose_name='Origem')),
             ],
             options={
                 'verbose_name': 'Saida',
