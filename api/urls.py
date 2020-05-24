@@ -14,6 +14,7 @@ router.register(r'chapa', views.ChapaViewSet)
 router.register(r'cliente', views.ClienteViewSet)
 router.register(r'servico', views.ServicoViewSet)
 router.register(r'nota', views.NotaViewSet)
+router.register(r'saidas', views.SaidasViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

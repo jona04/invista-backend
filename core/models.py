@@ -137,3 +137,25 @@ class GrupoNotaServico(models.Model):
         super(GrupoNotaServico, self).save(*args, **kwargs)
         cliente = self.servico.cliente
         cliente.nota.add(self.nota)
+
+
+class Saidas(models.Model):
+    descricao = models.CharField('Descrição', max_length=150)
+    valor = models.FloatField('Valor', null=True, blank=True)
+    created_at = models.DateTimeField('Criado em', auto_now_add=True, null=True)
+    uploaded_at = models.DateTimeField('Atualizad em', auto_now=True, null=True)
+
+    ORIGEM_CHOICE = (
+        (0, 'INVISTA'),
+        (1, 'THE BRINDES'),
+    )
+
+    origem = models.IntegerField('Origem', choices=ORIGEM_CHOICE, default=0, blank=True)
+
+    def __str__(self):
+        return str(self.descricao)
+
+    class Meta:
+        verbose_name = "Saida"
+        verbose_name_plural = "Saidas"
+        ordering = ['-created_at']

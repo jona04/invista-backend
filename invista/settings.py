@@ -11,10 +11,7 @@ from decouple import config, Csv
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:3000',
-    'https://cranky-varahamihira-fbd921.netlify.app'
-]
+CORS_ORIGIN_WHITELIST = config('CORS_ORIGIN_WHITELIST', cast=Csv())
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -91,7 +88,8 @@ WSGI_APPLICATION = 'invista.wsgi.application'
 
 # HEROKU SETTINGS
 
-default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+# default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+default_db_url = 'postgres://postgres:admin@localhost/invista'
 
 parse_database = partial(dj_database_url.parse, conn_max_age=600)
 

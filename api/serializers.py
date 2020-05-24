@@ -1,11 +1,17 @@
 from rest_framework import serializers
-from core.models import Chapa, Nota, Servico, Cliente
+from core.models import Chapa, Nota, Servico, Cliente, Saidas
 
 
 class ChapaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapa
         fields = ('id', 'nome', 'valor', 'estoque', 'obs', 'created_at', 'uploaded_at')
+
+
+class SaidasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Saidas
+        fields = ('id', 'descricao', 'valor', 'origem', 'created_at', 'uploaded_at')
 
 
 class ServicoSerializer(serializers.ModelSerializer):

@@ -1,6 +1,6 @@
 from .serializers import ChapaSerializer, NotaSerializer, ClienteSerializer, \
-    ListaClienteSerializer, ServicoSerializer
-from core.models import Chapa, Nota, Cliente, Servico
+    ListaClienteSerializer, ServicoSerializer, SaidasSerializer
+from core.models import Chapa, Nota, Cliente, Servico, Saidas
 from rest_framework import viewsets, filters
 
 
@@ -64,6 +64,15 @@ class ListaClienteViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('nome', 'cidade')
 
+class SaidasViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Saidas.objects.all()
+    serializer_class = SaidasSerializer
+
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('descricao', 'valor')
 
 class ServicoViewSet(viewsets.ModelViewSet):
     """
