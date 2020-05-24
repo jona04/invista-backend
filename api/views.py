@@ -64,6 +64,7 @@ class ListaClienteViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('nome', 'cidade')
 
+
 class SaidasViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -73,6 +74,7 @@ class SaidasViewSet(viewsets.ModelViewSet):
 
     filter_backends = (filters.SearchFilter,)
     search_fields = ('descricao', 'valor')
+
 
 class ServicoViewSet(viewsets.ModelViewSet):
     """
