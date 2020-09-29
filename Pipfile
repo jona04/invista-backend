@@ -37,6 +37,7 @@ collectfast = "*"
 django-debug-toolbar = "*"
 sentry-sdk = "*"
 djangorestframework-simplejwt = "*"
+django-admin-rangefilter = "*"
 
 [requires]
 python_version = "3.8"

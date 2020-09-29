@@ -4,6 +4,8 @@ from django.shortcuts import render
 
 from django.contrib.admin import DateFieldListFilter
 
+from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
+
 # Register your models here.
 
 from .models import Cliente, Chapa, Servico, Nota, GrupoNotaServico, GrupoClienteNota
@@ -378,7 +380,7 @@ class NotaAdmin(admin.ModelAdmin):
     actions = [imprimir_recibo]
 
     list_filter = (
-        ('created_at', DateFieldListFilter),
+        ('created_at', DateRangeFilter),
     )
     inlines = (GrupoNotaServicoInline,)
 

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'mathfilters',
     'rest_framework',
     'corsheaders',
+    'rangefilter',
 ]
 
 MIDDLEWARE = [
@@ -89,7 +90,7 @@ WSGI_APPLICATION = 'invista.wsgi.application'
 # HEROKU SETTINGS
 
 # default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-default_db_url = 'postgres://postgres:admin@localhost/invista'
+default_db_url = 'postgres://postgres:a@localhost/invista'
 
 parse_database = partial(dj_database_url.parse, conn_max_age=600)
 
