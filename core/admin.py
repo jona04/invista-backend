@@ -164,6 +164,33 @@ def imprimir_recibo2(self, request, queryset):
 
     self.message_user(request, message, type_messages)
 
+def listar(self, request, queryset):
+
+    list_query = []
+    for i, query in enumerate(queryset):
+        nota = queryset[i]
+        for obj in nota.servico.all():
+            id = 1000 + nota.id
+
+            context = {
+                'cliente': obj.cliente.nome,
+                'nome': obj.nome,
+                'id': id,
+                'valor_total': obj.quantidade * obj.chapa.valor,
+                'chapa': obj.chapa.nome,
+                'quantidade': obj.quantidade,
+                'valor_unidade': obj.chapa.valor,
+                'todos': nota.servico.all()
+            }
+        list_query.append(context)
+
+    new_context = {
+        'lista': list_query
+    }
+    return render(request,
+                  'layout_listar.html',
+                  new_context)
+
 
 def imprimir_recibo(self, request, queryset):
     if (len(queryset) == 1):
@@ -315,6 +342,7 @@ def imprimir_recibo(self, request, queryset):
 
 # nome que irá aparecer no display para o osuauro
 imprimir_recibo.short_description = "Imprimir Nota de Entrega"
+listar.short_description = "Lista Notas"
 
 
 def atualizar(self, request, queryset):
@@ -377,7 +405,7 @@ class NotaAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'numero', 'status', 'created_at']
     search_fields = ['id', 'servico__cliente__nome', 'created_at']
-    actions = [imprimir_recibo]
+    actions = [imprimir_recibo, listar]
 
     list_filter = (
         ('created_at', DateRangeFilter),

@@ -1,0 +1,56 @@
+{% load mathfilters %}
+
+<!DOCTYPE html>
+<html>
+ <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Nota de Entrega Invista</title>
+<style type="text/css">
+
+body{
+margin:0;
+}
+
+</style>
+</head>
+
+<body>
+<div id="fundo1">
+
+    {% for query in lista %}
+
+        Id: {{ query.id }}  --- Cliente: {{ query.cliente }}
+        <table id="corpo">
+
+        <tr id="titulo">
+            <td>Serviço</td>
+            <td>Chapa</td>
+            <td>Quantidade</td>
+            <td>V. unitario</td>
+            <td>V. Total</td>
+        </tr>
+
+        {% for item in query.todos %}
+            <tr>
+                <td>{{ item.nome }} </td>
+                <td>{{ item.chapa }} </td>
+                <td>{{item.quantidade }} </td>
+                <td> R$ {{item.chapa.valor }} </td>
+                <td> R$ {{ item.quantidade|mul:item.chapa.valor }} </td>
+            </tr>
+        {% endfor %}
+        </table>
+
+    <br>
+        <hr>
+        <br>
+
+    {% endfor %}
+</div>
+
+
+
+</body>
+</html>
