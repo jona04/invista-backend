@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import Chapa, Nota, Servico, Cliente, Saidas
+from ..core.models import Chapa, Nota, Servico, Cliente, Saidas
 
 
 class ChapaSerializer(serializers.ModelSerializer):

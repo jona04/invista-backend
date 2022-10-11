@@ -18,6 +18,8 @@ class Cliente(models.Model):
     uploaded_at = models.DateTimeField("Atualizado em", auto_now=True, null=True)
     nota = models.ManyToManyField("Nota", through="GrupoClienteNota", null=True)
 
+    # pylint: disable=invalid-str-returned
+    # pylint: disable=no-member
     def __str__(self):
         return self.nome
 
@@ -45,6 +47,7 @@ class Chapa(models.Model):
     created_at = models.DateTimeField("Criado em", auto_now_add=True, null=True)
     uploaded_at = models.DateTimeField("Atualizado em", auto_now=True, null=True)
 
+    # pylint: disable=invalid-str-returned
     def __str__(self):
         return self.nome
 
@@ -55,6 +58,9 @@ class Chapa(models.Model):
 
 
 class Servico(models.Model):
+    # pylint: disable=invalid-str-returned
+    # pylint: disable=no-member
+
     nome = models.CharField("Nome Serviço", max_length=200)
     cliente = models.ForeignKey(
         Cliente,
@@ -82,6 +88,8 @@ class Servico(models.Model):
 
 
 class Nota(models.Model):
+    # pylint: disable=no-member
+
     # cliente = models.ForeignKey(Cliente, verbose_name='Cliente', related_name='clientes', on_delete=models.PROTECT)
     desconto = models.FloatField("Desconto", null=True, blank=False, default=0)
     numero = models.IntegerField("Numero Nota", null=True, blank=False, default=0)
@@ -97,10 +105,12 @@ class Nota(models.Model):
         (0, "Em aberto"),
         (1, "Pago"),
     )
+
     status = models.IntegerField(
         "Situação", choices=STATUS_CHOICE, default=0, blank=True
     )
 
+    # pylint: disable=function-redefined
     @property
     def numero(self):
         return self.id + 1000
@@ -115,6 +125,7 @@ class Nota(models.Model):
 
 
 class GrupoClienteNota(models.Model):
+    # pylint: disable=no-member
     nota = models.ForeignKey(Nota, on_delete=models.PROTECT, null=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=True)
 
@@ -123,6 +134,7 @@ class GrupoClienteNota(models.Model):
 
 
 class GrupoNotaServico(models.Model):
+    # pylint: disable=no-member
     nota = models.ForeignKey(Nota, on_delete=models.PROTECT, null=True)
     servico = models.ForeignKey(Servico, on_delete=models.PROTECT, null=True)
 

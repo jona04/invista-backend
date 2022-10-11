@@ -6,25 +6,27 @@ from django.db.models import Q
 from .models import Chapa, Cliente, Nota, Servico
 
 
-def index(request):
+def index():
     return HttpResponse("Hello, world. You're at the core index.")
 
 
 # Create your views here.
 def listaChapas(request):
-    chapas = Chapa.objects.all()
+    # pylint: disable=no-member
+    chapas_list = Chapa.objects.all()
 
-    context = {"chapas": chapas}
+    context = {"chapas": chapas_list}
     return render(request, "lista_chapas.html", context)
 
 
 def home(request):
-    chapas = Chapa.objects.all()
+    # pylint: disable=no-member
+    chapas_list = Chapa.objects.all()
     cliente = Cliente.objects.all()
     nota = Nota.objects.all()
     servico = Servico.objects.all()
     context = {}
-    context["chapas"] = chapas
+    context["chapas"] = chapas_list
     context["cliente"] = cliente
     context["nota"] = nota
     context["servico"] = servico
@@ -33,8 +35,9 @@ def home(request):
 
 
 def notas(request):
-    notas = Nota.objects.all()
-    paginator = Paginator(notas, 20)  # Show 20 contacts per page.
+    # pylint: disable=no-member
+    notas_list = Nota.objects.all()
+    paginator = Paginator(notas_list, 20)  # Show 20 contacts per page.
     # context = {}
     # context['notas'] = notas
 
@@ -45,23 +48,25 @@ def notas(request):
     # return render(request, 'notas.html', context)
 
 
-def get_number(request):
+def get_number():
     print("number")
 
 
-def nota_especifica(request, id):
-    nota = Nota.objects.get(pk=id)
-    servicos = nota.servico.all()
+def nota_especifica(request, newid):
+    # pylint: disable=no-member
+    nota = Nota.objects.get(pk=newid)
+    servico_list = nota.servico.all()
     context = {}
     context["nota"] = nota
-    context["servicos"] = servicos
+    context["servicos"] = servico_list
 
     return render(request, "nota_especifica.html", context)
 
 
 def chapas(request):
-    chapas = Chapa.objects.all()
-    paginator = Paginator(chapas, 20)  # Show 20 contacts per page.
+    # pylint: disable=no-member
+    chapa_list = Chapa.objects.all()
+    paginator = Paginator(chapa_list, 20)  # Show 20 contacts per page.
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -69,43 +74,48 @@ def chapas(request):
 
 
 def clientes(request):
-    clientes = Cliente.objects.all()
-    paginator = Paginator(clientes, 20)  # Show 20 contacts per page.
+    # pylint: disable=no-member
+    cliente_list = Cliente.objects.all()
+    paginator = Paginator(cliente_list, 20)  # Show 20 contacts per page.
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request, "clientes.html", {"page_obj": page_obj})
 
 
-def cliente_especifico(request, id):
-    cliente = Cliente.objects.get(pk=id)
+def cliente_especifico(request, newid):
+    # pylint: disable=no-member
+    cliente = Cliente.objects.get(pk=newid)
     context = {}
     context["cliente"] = cliente
 
     return render(request, "cliente_especifico.html", context)
 
 
-def lista_servicos_cliente(request, id):
-    cliente = Cliente.objects.get(pk=id)
-    servicos = Servico.objects.filter(cliente=id)
+def lista_servicos_cliente(request, newid):
+    # pylint: disable=no-member
+    cliente = Cliente.objects.get(pk=newid)
+    servico_list = Servico.objects.filter(cliente=newid)
     context = {}
     context["cliente"] = cliente
-    context["servicos"] = servicos
+    context["servicos"] = servico_list
 
     return render(request, "lista_servicos_cliente.html", context)
 
 
-def lista_notas_cliente(request, id):
-    cliente = Cliente.objects.get(pk=id)
-    notas = Nota.objects.all()
+def lista_notas_cliente(request, newid):
+    # pylint: disable=no-member
+    cliente = Cliente.objects.get(pk=newid)
+    nota_list = Nota.objects.all()
     context = {}
     context["cliente"] = cliente
-    context["notas"] = notas
+    context["notas"] = nota_list
 
     return render(request, "lista_notas_cliente.html", context)
 
 
 def servicos(request):
+    # pylint: disable=no-member
     servico = Servico.objects.all()
     paginator = Paginator(servico, 20)  # Show 20 contacts per page.
 
@@ -115,9 +125,10 @@ def servicos(request):
 
 
 def busca_nota(request):
+    # pylint: disable=no-member
     query = request.POST["campo_busca"]
-    notas = Nota.objects.filter(Q(id__icontains=int(query) - 1000))
-    paginator = Paginator(notas, 20)  # Show 20 contacts per page.
+    nota_list = Nota.objects.filter(Q(id__icontains=int(query) - 1000))
+    paginator = Paginator(nota_list, 20)  # Show 20 contacts per page.
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -125,9 +136,10 @@ def busca_nota(request):
 
 
 def busca_cliente(request):
+    # pylint: disable=no-member
     query = request.POST["campo_busca"]
-    clientes = Cliente.objects.filter(Q(nome__icontains=query))
-    paginator = Paginator(clientes, 20)  # Show 20 contacts per page.
+    cliente_list = Cliente.objects.filter(Q(nome__icontains=query))
+    paginator = Paginator(cliente_list, 20)  # Show 20 contacts per page.
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -135,11 +147,12 @@ def busca_cliente(request):
 
 
 def busca_servico(request):
+    # pylint: disable=no-member
     query = request.POST["campo_busca"]
-    servicos = Servico.objects.filter(
+    servico_list = Servico.objects.filter(
         Q(nome__icontains=query) | Q(cliente__nome__icontains=query)
     )
-    paginator = Paginator(servicos, 20)  # Show 20 contacts per page.
+    paginator = Paginator(servico_list, 20)  # Show 20 contacts per page.
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)

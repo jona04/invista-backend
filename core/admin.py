@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from django.contrib.admin import DateFieldListFilter
 
-from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
+from rangefilter.filter import DateRangeFilter
 
 # Register your models here.
 
@@ -23,7 +23,7 @@ def imprimir_recibo2(self, request, queryset):
         mes = data_atual.month
         ano = data_atual.year
 
-        id = 1000 + obj.id
+        newid = 1000 + obj.id
         rua = obj.numero
         numero = obj.servico.cliente.bairro
         bairro = obj.servico.cliente.bairro
@@ -60,7 +60,7 @@ def imprimir_recibo2(self, request, queryset):
             "dia": dia,
             "mes": mes,
             "ano": ano,
-            "id": id,
+            "id": newid,
             "endereco": endereco,
             "cidade": cidade,
             "estado": estado,
@@ -77,19 +77,19 @@ def imprimir_recibo2(self, request, queryset):
         # 	from_email=settings.DEFAULT_FROM_EMAIL,
         # 	recipient_list=[obj.email]
         # 	)
-        type_messages = messages.INFO
-        message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
+        # type_messages = messages.INFO
+        # message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
 
-        print("Ok")
-        obj.status = 4
-        obj.fineshed_at = timezone.now()
-        obj.save()
+        # print("Ok")
+        # obj.status = 4
+        # obj.fineshed_at = timezone.now()
+        # obj.save()
 
     elif len(queryset) > 1:
 
         obj = queryset[0]
 
-        id = 1000 + obj.id
+        newid = 1000 + obj.id
         rua = obj.cliente.rua
         numero = obj.cliente.numero
         bairro = obj.cliente.bairro
@@ -137,7 +137,7 @@ def imprimir_recibo2(self, request, queryset):
             "dia": dia,
             "mes": mes,
             "ano": ano,
-            "id": id,
+            "id": newid,
             "endereco": endereco,
             "cidade": cidade,
             "estado": estado,
@@ -149,29 +149,29 @@ def imprimir_recibo2(self, request, queryset):
 
         return render(request, "layout_recibo_muitos.html", context)
 
-        type_messages = messages.INFO
-        message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
+    type_messages = messages.INFO
+    message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
 
-        print("Ok")
-        obj.status = 4
-        obj.fineshed_at = timezone.now()
-        obj.save()
+    print("Ok")
+    obj.status = 4
+    obj.fineshed_at = timezone.now()
+    obj.save()
 
     self.message_user(request, message, type_messages)
 
 
-def listar(self, request, queryset):
+def listar(request, queryset):
 
     list_query = []
-    for i, query in enumerate(queryset):
+    for i, _ in enumerate(queryset):
         nota = queryset[i]
         for obj in nota.servico.all():
-            id = 1000 + nota.id
+            newid = 1000 + nota.id
 
             context = {
                 "cliente": obj.cliente.nome,
                 "nome": obj.nome,
-                "id": id,
+                "id": newid,
                 "valor_total": obj.quantidade * obj.chapa.valor,
                 "chapa": obj.chapa.nome,
                 "quantidade": obj.quantidade,
@@ -191,7 +191,7 @@ def imprimir_recibo(self, request, queryset):
 
             for obj in nota.servico.all():
 
-                id = 1000 + nota.id
+                newid = 1000 + nota.id
                 rua = obj.cliente.rua
                 numero = obj.cliente.numero
                 bairro = obj.cliente.bairro
@@ -239,7 +239,7 @@ def imprimir_recibo(self, request, queryset):
                     "dia": dia,
                     "mes": mes,
                     "ano": ano,
-                    "id": id,
+                    "id": newid,
                     "endereco": endereco,
                     "cidade": cidade,
                     "estado": estado,
@@ -251,12 +251,12 @@ def imprimir_recibo(self, request, queryset):
 
                 return render(request, "layout_recibo_muitos.html", context)
 
-                type_messages = messages.INFO
-                message = (
-                    "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
-                )
+                # type_messages = messages.INFO
+                # message = (
+                #     "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
+                # )
 
-                print("Ok")
+                # print("Ok")
 
         else:
             for obj in nota.servico.all():
@@ -267,7 +267,7 @@ def imprimir_recibo(self, request, queryset):
                 mes = obj.uploaded_at.month
                 ano = obj.uploaded_at.year
 
-                id = 1000 + nota.id
+                newid = 1000 + nota.id
                 rua = obj.cliente.numero
                 numero = obj.cliente.bairro
                 bairro = obj.cliente.bairro
@@ -304,7 +304,7 @@ def imprimir_recibo(self, request, queryset):
                     "dia": dia,
                     "mes": mes,
                     "ano": ano,
-                    "id": id,
+                    "id": newid,
                     "endereco": endereco,
                     "cidade": cidade,
                     "estado": estado,
@@ -321,12 +321,12 @@ def imprimir_recibo(self, request, queryset):
                 # 	from_email=settings.DEFAULT_FROM_EMAIL,
                 # 	recipient_list=[obj.email]
                 # 	)
-                type_messages = messages.INFO
-                message = (
-                    "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
-                )
+        type_messages = messages.INFO
+        message = (
+            "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
+        )
 
-                print("Ok")
+        print("Ok")
 
     self.message_user(request, message, type_messages)
 
@@ -337,6 +337,7 @@ listar.short_description = "Lista Notas"
 
 
 def atualizar(self, request, queryset):
+    # pylint: disable=no-member
     cliente_atual = queryset[0]
     notas = Nota.objects.all()
     for nota in notas:

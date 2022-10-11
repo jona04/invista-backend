@@ -4,9 +4,9 @@ import os
 # from sentry_sdk.integrations.django import DjangoIntegration
 
 # Update database configuration with $DATABASE_URL.
-from functools import partial
+# from functools import partial
 
-import dj_database_url
+# import dj_database_url
 from decouple import config, Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

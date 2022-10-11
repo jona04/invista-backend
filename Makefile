@@ -4,9 +4,10 @@ install:
 format:
 	black *.py invista/*.py core/*.py api/*.py
 lint:
-	# flake8 or pylint
+	# pylint - disable recommendations and configuratios
+	pylint --disable=R,C *.py invista/*.py core/*.py api/*.py
 test: 
-	# test
+	# test 
 deploy:
 	# deploy
 all: install lint test deploy
