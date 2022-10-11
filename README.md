@@ -2,10 +2,10 @@
 
 # Scaffold - Code
 
-- Makefile \
-- requirements.txt \
-- source \
-- test \
+- Makefile 
+- requirements.txt 
+- source 
+- test 
 - Dockerfile
 
 1 - Create a Python Virtual enviroment

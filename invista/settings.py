@@ -1,6 +1,6 @@
 import os
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
+# import sentry_sdk
+# from sentry_sdk.integrations.django import DjangoIntegration
 
 # Update database configuration with $DATABASE_URL.
 from functools import partial
@@ -90,12 +90,21 @@ WSGI_APPLICATION = 'invista.wsgi.application'
 # HEROKU SETTINGS
 
 # default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-default_db_url = 'postgres://postgres:a@localhost/invista'
+# default_db_url = 'postgres://postgres:a@localhost:5432/invista'
 
-parse_database = partial(dj_database_url.parse, conn_max_age=600)
+# parse_database = partial(dj_database_url.parse, conn_max_age=600)
 
 DATABASES = {
-    'default': config('DATABASE_URL', default=default_db_url, cast=parse_database)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'invista',                      # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': 'postgres',
+        'PASSWORD': 'a',
+        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': 5432,                      # Set to empty string for default.
+    }
+    # 'default': config('DATABASE_URL', default=default_db_url, cast=parse_database)
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -169,9 +178,9 @@ if AWS_ACCESS_KEY_ID:
     INSTALLED_APPS.append('s3_folder_storage')
     INSTALLED_APPS.append('storages')
 
-SENTRY_DNS = config('SENTRY_DSN', default=None)
-if SENTRY_DNS:
-    sentry_sdk.init(
-        dsn=SENTRY_DNS,
-        integrations=[DjangoIntegration()]
-    )
+# SENTRY_DNS = config('SENTRY_DSN', default=None)
+# if SENTRY_DNS:
+#     sentry_sdk.init(
+#         dsn=SENTRY_DNS,
+#         integrations=[DjangoIntegration()]
+#     )
