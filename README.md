@@ -1,3 +1,5 @@
+[![Python application test with Github Actions](https://github.com/jona04/invista-backend/actions/workflows/devops.yml/badge.svg)](https://github.com/jona04/invista-backend/actions/workflows/devops.yml)
+
 # Invista Backend
 
 # Scaffold - Code
