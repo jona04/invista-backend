@@ -1,5 +1,11 @@
-from .serializers import ChapaSerializer, NotaSerializer, ClienteSerializer, \
-    ListaClienteSerializer, ServicoSerializer, SaidasSerializer
+from .serializers import (
+    ChapaSerializer,
+    NotaSerializer,
+    ClienteSerializer,
+    ListaClienteSerializer,
+    ServicoSerializer,
+    SaidasSerializer,
+)
 from core.models import Chapa, Nota, Cliente, Servico, Saidas
 from rest_framework import viewsets, filters
 
@@ -8,22 +14,24 @@ class ChapaViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+
     queryset = Chapa.objects.all()
     serializer_class = ChapaSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('nome', 'obs')
+    search_fields = ("nome", "obs")
 
 
 class NotaViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+
     queryset = Nota.objects.all()
     serializer_class = NotaSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('numero', 'obs')
+    search_fields = ("numero", "obs")
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
@@ -38,12 +46,12 @@ class ClienteViewSet(viewsets.ModelViewSet):
     # serializer_class = ListaClienteSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('nome', 'cidade')
-    ordering = ('nome',)
+    search_fields = ("nome", "cidade")
+    ordering = ("nome",)
 
     def get_serializer_class(self):
-        tipo_serializer = self.request.query_params.get('tipo_serializer')
-        if tipo_serializer == 'lista':
+        tipo_serializer = self.request.query_params.get("tipo_serializer")
+        if tipo_serializer == "lista":
             return ListaClienteSerializer
         else:
             return ClienteSerializer
@@ -58,30 +66,33 @@ class ListaClienteViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+
     queryset = Cliente.objects.all()
     serializer_class = ListaClienteSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('nome', 'cidade')
+    search_fields = ("nome", "cidade")
 
 
 class SaidasViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+
     queryset = Saidas.objects.all()
     serializer_class = SaidasSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('descricao', 'valor')
+    search_fields = ("descricao", "valor")
 
 
 class ServicoViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+
     queryset = Servico.objects.all()
     serializer_class = ServicoSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('nome', 'cliente__nome')
+    search_fields = ("nome", "cliente__nome")

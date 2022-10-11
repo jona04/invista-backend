@@ -11,11 +11,11 @@ from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 from .models import Cliente, Chapa, Servico, Nota, GrupoNotaServico, GrupoClienteNota
 from datetime import date
 
-admin.site.disable_action('delete_selected')
+admin.site.disable_action("delete_selected")
 
 
 def imprimir_recibo2(self, request, queryset):
-    if (len(queryset) == 1):
+    if len(queryset) == 1:
         obj = queryset[0]
 
         data_atual = date.today()
@@ -31,17 +31,17 @@ def imprimir_recibo2(self, request, queryset):
         estado = obj.servico.cliente.estado
 
         if cidade is None:
-            cidade = ''
+            cidade = ""
         if estado is None:
-            estado = ''
+            estado = ""
         if rua is None:
-            rua = ''
+            rua = ""
         if numero is None:
-            numero = ''
+            numero = ""
         if bairro is None:
-            bairro = ''
+            bairro = ""
 
-        endereco = rua + ', ' + str(numero)
+        endereco = rua + ", " + str(numero)
         desconto = 0
         # if obj.desconto == None:
         #     desconto = 0
@@ -49,30 +49,26 @@ def imprimir_recibo2(self, request, queryset):
         #     desconto = obj.desconto
 
         context = {
-            'nome': obj.nome,
-            'cliente': obj.servico.cliente.nome,
-            'email': obj.servico.cliente.email,
-            'telefone': obj.servico.cliente.telefone,
-            'chapa': obj.servico.chapa.nome,
-            'quantidade': obj.servico.quantidade,
-            'valor_unidade': obj.servico.chapa.valor,
-            'obs': obj.obs,
-            'dia': dia,
-            'mes': mes,
-            'ano': ano,
-            'id': id,
-            'endereco': endereco,
-            'cidade': cidade,
-            'estado': estado,
-            'bairro': bairro,
-
-            'desconto': desconto,
-            'valor_total': obj.servico.quantidade * obj.servico.chapa.valor,
-
+            "nome": obj.nome,
+            "cliente": obj.servico.cliente.nome,
+            "email": obj.servico.cliente.email,
+            "telefone": obj.servico.cliente.telefone,
+            "chapa": obj.servico.chapa.nome,
+            "quantidade": obj.servico.quantidade,
+            "valor_unidade": obj.servico.chapa.valor,
+            "obs": obj.obs,
+            "dia": dia,
+            "mes": mes,
+            "ano": ano,
+            "id": id,
+            "endereco": endereco,
+            "cidade": cidade,
+            "estado": estado,
+            "bairro": bairro,
+            "desconto": desconto,
+            "valor_total": obj.servico.quantidade * obj.servico.chapa.valor,
         }
-        return render(request,
-                      'layout_recibo.html',
-                      context)
+        return render(request, "layout_recibo.html", context)
         # send_mail_template(subject, template_name, context, [obj.email])
 
         # send_mail(
@@ -89,7 +85,7 @@ def imprimir_recibo2(self, request, queryset):
         obj.fineshed_at = timezone.now()
         obj.save()
 
-    elif (len(queryset) > 1):
+    elif len(queryset) > 1:
 
         obj = queryset[0]
 
@@ -101,15 +97,15 @@ def imprimir_recibo2(self, request, queryset):
         estado = obj.cliente.estado
 
         if cidade is None:
-            cidade = ''
+            cidade = ""
         if estado is None:
-            estado = ''
+            estado = ""
         if rua is None:
-            rua = ''
+            rua = ""
         if numero is None:
-            numero = ''
+            numero = ""
         if bairro is None:
-            bairro = ''
+            bairro = ""
 
         data_atual = date.today()
         dia = data_atual.day
@@ -130,29 +126,28 @@ def imprimir_recibo2(self, request, queryset):
         endereco = rua
 
         context = {
-            'nome': obj.nome,
-            'cliente': obj.cliente.nome,
-            'email': obj.cliente.email,
-            'telefone': obj.cliente.telefone,
-            'chapa': obj.chapa.nome,
-            'quantidade': obj.quantidade,
-            'valor_unidade': obj.chapa.valor,
-            'obs': obj.obs,
-            'dia': dia,
-            'mes': mes,
-            'ano': ano,
-            'id': id,
-            'endereco': endereco,
-            'cidade': cidade,
-            'estado': estado,
-            'bairro': bairro,
-
-            'desconto': desconto,
-            'valor_total': total,
-            'todos': queryset
+            "nome": obj.nome,
+            "cliente": obj.cliente.nome,
+            "email": obj.cliente.email,
+            "telefone": obj.cliente.telefone,
+            "chapa": obj.chapa.nome,
+            "quantidade": obj.quantidade,
+            "valor_unidade": obj.chapa.valor,
+            "obs": obj.obs,
+            "dia": dia,
+            "mes": mes,
+            "ano": ano,
+            "id": id,
+            "endereco": endereco,
+            "cidade": cidade,
+            "estado": estado,
+            "bairro": bairro,
+            "desconto": desconto,
+            "valor_total": total,
+            "todos": queryset,
         }
 
-        return render(request, 'layout_recibo_muitos.html', context)
+        return render(request, "layout_recibo_muitos.html", context)
 
         type_messages = messages.INFO
         message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
@@ -164,6 +159,7 @@ def imprimir_recibo2(self, request, queryset):
 
     self.message_user(request, message, type_messages)
 
+
 def listar(self, request, queryset):
 
     list_query = []
@@ -173,27 +169,23 @@ def listar(self, request, queryset):
             id = 1000 + nota.id
 
             context = {
-                'cliente': obj.cliente.nome,
-                'nome': obj.nome,
-                'id': id,
-                'valor_total': obj.quantidade * obj.chapa.valor,
-                'chapa': obj.chapa.nome,
-                'quantidade': obj.quantidade,
-                'valor_unidade': obj.chapa.valor,
-                'todos': nota.servico.all()
+                "cliente": obj.cliente.nome,
+                "nome": obj.nome,
+                "id": id,
+                "valor_total": obj.quantidade * obj.chapa.valor,
+                "chapa": obj.chapa.nome,
+                "quantidade": obj.quantidade,
+                "valor_unidade": obj.chapa.valor,
+                "todos": nota.servico.all(),
             }
         list_query.append(context)
 
-    new_context = {
-        'lista': list_query
-    }
-    return render(request,
-                  'layout_listar.html',
-                  new_context)
+    new_context = {"lista": list_query}
+    return render(request, "layout_listar.html", new_context)
 
 
 def imprimir_recibo(self, request, queryset):
-    if (len(queryset) == 1):
+    if len(queryset) == 1:
         nota = queryset[0]
         if len(nota.servico.all()) > 1:
 
@@ -207,15 +199,15 @@ def imprimir_recibo(self, request, queryset):
                 estado = obj.cliente.estado
 
                 if cidade is None:
-                    cidade = ''
+                    cidade = ""
                 if estado is None:
-                    estado = ''
+                    estado = ""
                 if rua is None:
-                    rua = ''
+                    rua = ""
                 if numero is None:
-                    numero = ''
+                    numero = ""
                 if bairro is None:
-                    bairro = ''
+                    bairro = ""
 
                 # data_atual = date.today()
                 dia = obj.uploaded_at.day
@@ -236,32 +228,33 @@ def imprimir_recibo(self, request, queryset):
                 endereco = rua
 
                 context = {
-                    'nome': obj.nome,
-                    'cliente': obj.cliente.nome,
-                    'email': obj.cliente.email,
-                    'telefone': obj.cliente.telefone,
-                    'chapa': obj.chapa.nome,
-                    'quantidade': obj.quantidade,
-                    'valor_unidade': obj.chapa.valor,
-                    'obs': nota.obs,
-                    'dia': dia,
-                    'mes': mes,
-                    'ano': ano,
-                    'id': id,
-                    'endereco': endereco,
-                    'cidade': cidade,
-                    'estado': estado,
-                    'bairro': bairro,
-
-                    'desconto': desconto,
-                    'valor_total': total,
-                    'todos': nota.servico.all()
+                    "nome": obj.nome,
+                    "cliente": obj.cliente.nome,
+                    "email": obj.cliente.email,
+                    "telefone": obj.cliente.telefone,
+                    "chapa": obj.chapa.nome,
+                    "quantidade": obj.quantidade,
+                    "valor_unidade": obj.chapa.valor,
+                    "obs": nota.obs,
+                    "dia": dia,
+                    "mes": mes,
+                    "ano": ano,
+                    "id": id,
+                    "endereco": endereco,
+                    "cidade": cidade,
+                    "estado": estado,
+                    "bairro": bairro,
+                    "desconto": desconto,
+                    "valor_total": total,
+                    "todos": nota.servico.all(),
                 }
 
-                return render(request, 'layout_recibo_muitos.html', context)
+                return render(request, "layout_recibo_muitos.html", context)
 
                 type_messages = messages.INFO
-                message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
+                message = (
+                    "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
+                )
 
                 print("Ok")
 
@@ -282,15 +275,15 @@ def imprimir_recibo(self, request, queryset):
                 estado = obj.cliente.estado
 
                 if cidade is None:
-                    cidade = ''
+                    cidade = ""
                 if estado is None:
-                    estado = ''
+                    estado = ""
                 if rua is None:
-                    rua = ''
+                    rua = ""
                 if numero is None:
-                    numero = ''
+                    numero = ""
                 if bairro is None:
-                    bairro = ''
+                    bairro = ""
 
                 endereco = rua
                 # desconto = 0
@@ -300,30 +293,26 @@ def imprimir_recibo(self, request, queryset):
                 #     desconto = obj.desconto
 
                 context = {
-                    'nome': obj.nome,
-                    'cliente': obj.cliente.nome,
-                    'email': obj.cliente.email,
-                    'telefone': obj.cliente.telefone,
-                    'chapa': obj.chapa.nome,
-                    'quantidade': obj.quantidade,
-                    'valor_unidade': obj.chapa.valor,
-                    'obs': nota.obs,
-                    'dia': dia,
-                    'mes': mes,
-                    'ano': ano,
-                    'id': id,
-                    'endereco': endereco,
-                    'cidade': cidade,
-                    'estado': estado,
-                    'bairro': bairro,
-
-                    'desconto': nota.desconto,
-                    'valor_total': obj.quantidade * obj.chapa.valor,
-
+                    "nome": obj.nome,
+                    "cliente": obj.cliente.nome,
+                    "email": obj.cliente.email,
+                    "telefone": obj.cliente.telefone,
+                    "chapa": obj.chapa.nome,
+                    "quantidade": obj.quantidade,
+                    "valor_unidade": obj.chapa.valor,
+                    "obs": nota.obs,
+                    "dia": dia,
+                    "mes": mes,
+                    "ano": ano,
+                    "id": id,
+                    "endereco": endereco,
+                    "cidade": cidade,
+                    "estado": estado,
+                    "bairro": bairro,
+                    "desconto": nota.desconto,
+                    "valor_total": obj.quantidade * obj.chapa.valor,
                 }
-                return render(request,
-                              'layout_recibo.html',
-                              context)
+                return render(request, "layout_recibo.html", context)
                 # send_mail_template(subject, template_name, context, [obj.email])
 
                 # send_mail(
@@ -333,7 +322,9 @@ def imprimir_recibo(self, request, queryset):
                 # 	recipient_list=[obj.email]
                 # 	)
                 type_messages = messages.INFO
-                message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
+                message = (
+                    "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
+                )
 
                 print("Ok")
 
@@ -357,7 +348,10 @@ def atualizar(self, request, queryset):
                 print(nota.servico)
             else:
                 type_messages = messages.INFO
-                message = "Todas as notas ja estao atualizadas para esse cliente: %s" % cliente_atual
+                message = (
+                    "Todas as notas ja estao atualizadas para esse cliente: %s"
+                    % cliente_atual
+                )
         except NameError:
             type_messages = messages.ERROR
             message = "Erro ao verificar nota %s" % nota
@@ -378,38 +372,34 @@ class GrupoClienteNotaInline(admin.TabularInline):
 
 
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'email', 'telefone', 'cidade', 'estado']
-    search_fields = ['nome']
+    list_display = ["nome", "email", "telefone", "cidade", "estado"]
+    search_fields = ["nome"]
     # inlines = (GrupoClienteNotaInline,)
     actions = [atualizar]
     readonly_fields = ["nota"]
 
 
 class ChapaAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'valor', 'estoque']
-    search_fields = ['nome']
+    list_display = ["nome", "valor", "estoque"]
+    search_fields = ["nome"]
 
 
 class ServicoAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'cliente', 'chapa', 'quantidade', 'created_at']
-    search_fields = ['nome', 'cliente__nome', 'created_at']
+    list_display = ["nome", "cliente", "chapa", "quantidade", "created_at"]
+    search_fields = ["nome", "cliente__nome", "created_at"]
     # actions = [imprimir_recibo]
 
-    list_filter = (
-        ('created_at', DateFieldListFilter),
-    )
+    list_filter = (("created_at", DateFieldListFilter),)
 
 
 class NotaAdmin(admin.ModelAdmin):
-    exclude = ('numero',)
+    exclude = ("numero",)
 
-    list_display = ['id', 'numero', 'status', 'created_at']
-    search_fields = ['id', 'servico__cliente__nome', 'created_at']
+    list_display = ["id", "numero", "status", "created_at"]
+    search_fields = ["id", "servico__cliente__nome", "created_at"]
     actions = [imprimir_recibo, listar]
 
-    list_filter = (
-        ('created_at', DateRangeFilter),
-    )
+    list_filter = (("created_at", DateRangeFilter),)
     inlines = (GrupoNotaServicoInline,)
 
 

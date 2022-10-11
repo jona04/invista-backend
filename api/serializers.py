@@ -5,13 +5,13 @@ from core.models import Chapa, Nota, Servico, Cliente, Saidas
 class ChapaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapa
-        fields = ('id', 'nome', 'valor', 'estoque', 'obs', 'created_at', 'uploaded_at')
+        fields = ("id", "nome", "valor", "estoque", "obs", "created_at", "uploaded_at")
 
 
 class SaidasSerializer(serializers.ModelSerializer):
     class Meta:
         model = Saidas
-        fields = ('id', 'descricao', 'valor', 'origem', 'created_at', 'uploaded_at')
+        fields = ("id", "descricao", "valor", "origem", "created_at", "uploaded_at")
 
 
 class ServicoSerializer(serializers.ModelSerializer):
@@ -20,7 +20,15 @@ class ServicoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Servico
-        fields = ('id', 'nome', 'cliente', 'chapa', 'quantidade', 'created_at', 'uploaded_at')
+        fields = (
+            "id",
+            "nome",
+            "cliente",
+            "chapa",
+            "quantidade",
+            "created_at",
+            "uploaded_at",
+        )
 
 
 class NotaSerializer(serializers.ModelSerializer):
@@ -28,7 +36,16 @@ class NotaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Nota
-        fields = ('id', 'desconto', 'numero', 'obs', 'servico', 'status', 'created_at', 'uploaded_at')
+        fields = (
+            "id",
+            "desconto",
+            "numero",
+            "obs",
+            "servico",
+            "status",
+            "created_at",
+            "uploaded_at",
+        )
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -37,13 +54,40 @@ class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = (
-            'id', 'nome', 'email', 'telefone', 'cnpj', 'cpf', 'rua', 'bairro', 'numero', 'cidade', 'estado', 'cep',
-            'created_at', 'uploaded_at', 'nota')
+            "id",
+            "nome",
+            "email",
+            "telefone",
+            "cnpj",
+            "cpf",
+            "rua",
+            "bairro",
+            "numero",
+            "cidade",
+            "estado",
+            "cep",
+            "created_at",
+            "uploaded_at",
+            "nota",
+        )
 
 
 class ListaClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = (
-            'id', 'nome', 'email', 'telefone', 'cnpj', 'cpf', 'rua', 'bairro', 'numero', 'cidade', 'estado', 'cep',
-            'created_at', 'uploaded_at')
+            "id",
+            "nome",
+            "email",
+            "telefone",
+            "cnpj",
+            "cpf",
+            "rua",
+            "bairro",
+            "numero",
+            "cidade",
+            "estado",
+            "cep",
+            "created_at",
+            "uploaded_at",
+        )
