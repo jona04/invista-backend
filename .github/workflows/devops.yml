@@ -2,6 +2,18 @@ name: Python application test with Github Actions
 
 on: [push]
 
+env:
+  DEBUG: True
+  SECRET_KEY: asdad123123adsa2452
+  ALLOWED_HOSTS: localhost, 127.0.0.1
+  DATABASE_URL: postgres//postgres:a@localhost:5432/invista
+  AWS_ACCESS_KEY_ID:
+  AWS_SECRET_ACCESS_KEY:
+  AWS_STORAGE_BUCKET_NAME:
+  INTERNAL_IPS: 127.0.0.1
+  SENTRY_DNS: 
+  CORS_ORIGIN_WHITELIST: 
+
 jobs:
   build:
 
