@@ -6,7 +6,7 @@ from .serializers import (
     ServicoSerializer,
     SaidasSerializer,
 )
-from ..core.models import Chapa, Nota, Cliente, Servico, Saidas
+from core.models import Chapa, Nota, Cliente, Servico, Saidas
 from rest_framework import viewsets, filters
 
 # pylint: disable=no-member

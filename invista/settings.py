@@ -1,7 +1,7 @@
 import os
 
-# import sentry_sdk
-# from sentry_sdk.integrations.django import DjangoIntegration
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Update database configuration with $DATABASE_URL.
 # from functools import partial
@@ -179,9 +179,6 @@ if AWS_ACCESS_KEY_ID:
     INSTALLED_APPS.append("s3_folder_storage")
     INSTALLED_APPS.append("storages")
 
-# SENTRY_DNS = config('SENTRY_DSN', default=None)
-# if SENTRY_DNS:
-#     sentry_sdk.init(
-#         dsn=SENTRY_DNS,
-#         integrations=[DjangoIntegration()]
-#     )
+SENTRY_DNS = config("SENTRY_DSN", default=None)
+if SENTRY_DNS:
+    sentry_sdk.init(dsn=SENTRY_DNS, integrations=[DjangoIntegration()])
