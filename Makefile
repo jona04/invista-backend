@@ -7,7 +7,9 @@ lint:
 	# pylint - disable recommendations and configuratios
 	pylint --disable=R,C *.py invista/*.py core/*.py api/*.py
 test: 
-	# test 
+	pytest -m pytest -vv --cov=tests tests/*.py
+build:
+	#build container
 deploy:
 	# deploy
 all: install lint test deploy

@@ -13,3 +13,10 @@
 1 - Create a Python Virtual enviroment
 `python3 -m venv ~/.venv or virtualenv ~/.venv`
 
+2 - Create empty files: `requirements.txt`,  `Makefile`,  `Dockerfile`
+
+3 - Populate Makefile
+
+4 - Setup Continuous integrations, i.e. check code for issueas like lint erros
+
+

@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from django.contrib.admin import DateFieldListFilter
 
-from rangefilter.filter import DateRangeFilter
+from rangefilter.filters import DateRangeFilter
 
 # Register your models here.
 
@@ -322,9 +322,7 @@ def imprimir_recibo(self, request, queryset):
                 # 	recipient_list=[obj.email]
                 # 	)
         type_messages = messages.INFO
-        message = (
-            "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
-        )
+        message = "Nota de entrega enviado com sucesso para %s" % obj.cliente.nome
 
         print("Ok")
 
