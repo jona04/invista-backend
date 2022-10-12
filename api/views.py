@@ -1,3 +1,4 @@
+from rest_framework import viewsets, filters
 from .serializers import (
     ChapaSerializer,
     NotaSerializer,
@@ -6,8 +7,8 @@ from .serializers import (
     ServicoSerializer,
     SaidasSerializer,
 )
+# pylint: disable=import-error
 from core.models import Chapa, Nota, Cliente, Servico, Saidas
-from rest_framework import viewsets, filters
 
 # pylint: disable=no-member
 class ChapaViewSet(viewsets.ModelViewSet):
