@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  backend:
+    build: . 
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: invista
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: a
+    volumes:
+      - .dbdata:/var/lib/postgres
+    ports:
+      - 5433:5432
