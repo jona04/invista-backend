@@ -15,6 +15,7 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.is_admin = False
         user.is_staff = False
+        user.is_funcionario = False
         user.save(using=self._db)
 
         return user
@@ -30,6 +31,7 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.is_admin = True
         user.is_staff = True
+        user.is_funcionario = False
         user.save(using=self._db)
 
         return user
@@ -87,10 +89,10 @@ class Cliente(models.Model):
 
 class Chapa(models.Model):
     nome = models.CharField("Nome", max_length=100)
-    valor = models.FloatField("Valor", null=True, blank=True)
-    estoque = models.IntegerField("Quantidade em Estoque", null=True, blank=True)
-    marca = models.CharField("Marca", null=True, blank=True, max_length=50)
-    obs = models.CharField("Obs", max_length=255, null=True, blank=True)
+    valor = models.FloatField("Valor", blank=True)
+    estoque = models.IntegerField("Quantidade em Estoque", blank=True)
+    marca = models.CharField("Marca", blank=True, max_length=50)
+    obs = models.CharField("Obs", max_length=255, blank=True)
     created_at = models.DateTimeField("Criado em", auto_now_add=True, null=True)
     uploaded_at = models.DateTimeField("Atualizado em", auto_now=True, null=True)
 

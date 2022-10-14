@@ -1,5 +1,4 @@
 import os
-
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -55,13 +54,17 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ]
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
+AUTH_USER_MODEL = "core.User"
+
+CORS_ORIGIN_ALLOW_ALL = True  # enables the frontend to access the backend
+CORS_ALLOW_CREDENTIALS = (
+    True  # enables the frontend to get the cookies created by the backend
+)
 
 ROOT_URLCONF = "invista.urls"
 
@@ -133,8 +136,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-AUTH_USER_MODEL = "core.User"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
