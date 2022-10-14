@@ -1,14 +1,23 @@
+from django.contrib.admin import DateFieldListFilter
+from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin, messages
 from django.utils import timezone
 from django.shortcuts import render
 
-from django.contrib.admin import DateFieldListFilter
 
 from rangefilter.filters import DateRangeFilter
 
 # Register your models here.
 
-from .models import Cliente, Chapa, Servico, Nota, GrupoNotaServico, GrupoClienteNota
+from .models import (
+    Cliente,
+    Chapa,
+    Servico,
+    Nota,
+    GrupoNotaServico,
+    GrupoClienteNota,
+    User,
+)
 from datetime import date
 
 admin.site.disable_action("delete_selected")
@@ -360,6 +369,10 @@ def atualizar(self, request, queryset):
 atualizar.short_description = "Atualizar Nota"
 
 
+class SuperUser(UserAdmin):
+    ordering = ["id"]
+
+
 class GrupoNotaServicoInline(admin.TabularInline):
     model = GrupoNotaServico
     extra = 1
@@ -406,3 +419,4 @@ admin.site.register(Cliente, ClienteAdmin)
 admin.site.register(Chapa, ChapaAdmin)
 admin.site.register(Servico, ServicoAdmin)
 admin.site.register(Nota, NotaAdmin)
+admin.site.register(User, SuperUser)

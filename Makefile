@@ -9,7 +9,7 @@ lint:
 test: 
 	#pytest -m pytest -vv --cov=tests tests/*.py
 build:
-	#build container
+	docker-compose up
 deploy:
 	# deploy
 all: install lint test deploy

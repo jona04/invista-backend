@@ -13,7 +13,7 @@
 1 - Create a Python Virtual enviroment
 `python3 -m venv ~/.venv or virtualenv ~/.venv`
 
-2 - Create empty files: `requirements.txt`,  `Makefile`,  `Dockerfile`
+2 - Create empty files: `requirements.txt`,  `Makefile`,  `Dockerfile`, `docker-compose.yml`
 
 3 - Populate Makefile
 
