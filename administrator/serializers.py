@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 # pylint: disable=import-error
-from core.models import Chapa, Nota, Servico, Cliente, Saidas
+from core.models import Chapa, Nota, Servico, Cliente
 
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,12 +30,6 @@ class ChapaSerializer(serializers.ModelSerializer):
         fields = ("id", "nome", "valor", "estoque", "obs", "created_at", "uploaded_at")
 
 
-class SaidasSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Saidas
-        fields = ("id", "descricao", "valor", "origem", "created_at", "uploaded_at")
-
-
 class ServicoSerializer(serializers.ModelSerializer):
     cliente = serializers.StringRelatedField()
     chapa = ChapaSerializer(read_only=True)
@@ -48,6 +42,7 @@ class ServicoSerializer(serializers.ModelSerializer):
             "cliente",
             "chapa",
             "quantidade",
+            "valor_total_servico",
             "created_at",
             "uploaded_at",
         )
@@ -65,6 +60,7 @@ class NotaSerializer(serializers.ModelSerializer):
             "obs",
             "servico",
             "status",
+            "valor_total_nota",
             "created_at",
             "uploaded_at",
         )
@@ -91,25 +87,4 @@ class ClienteSerializer(serializers.ModelSerializer):
             "created_at",
             "uploaded_at",
             "nota",
-        )
-
-
-class ListaClienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cliente
-        fields = (
-            "id",
-            "nome",
-            "email",
-            "telefone",
-            "cnpj",
-            "cpf",
-            "rua",
-            "bairro",
-            "numero",
-            "cidade",
-            "estado",
-            "cep",
-            "created_at",
-            "uploaded_at",
         )

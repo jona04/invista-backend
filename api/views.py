@@ -5,11 +5,10 @@ from .serializers import (
     ClienteSerializer,
     ListaClienteSerializer,
     ServicoSerializer,
-    SaidasSerializer,
 )
 
 # pylint: disable=import-error
-from core.models import Chapa, Nota, Cliente, Servico, Saidas
+from core.models import Chapa, Nota, Cliente, Servico
 
 # pylint: disable=no-member
 class ChapaViewSet(viewsets.ModelViewSet):
@@ -74,18 +73,6 @@ class ListaClienteViewSet(viewsets.ModelViewSet):
 
     filter_backends = (filters.SearchFilter,)
     search_fields = ("nome", "cidade")
-
-
-class SaidasViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-
-    queryset = Saidas.objects.all()
-    serializer_class = SaidasSerializer
-
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ("descricao", "valor")
 
 
 class ServicoViewSet(viewsets.ModelViewSet):

@@ -1,3 +1,4 @@
+from email.policy import default
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -90,9 +91,9 @@ class Cliente(models.Model):
 class Chapa(models.Model):
     nome = models.CharField("Nome", max_length=100)
     valor = models.FloatField("Valor", blank=True)
-    estoque = models.IntegerField("Quantidade em Estoque", blank=True)
-    marca = models.CharField("Marca", blank=True, max_length=50)
-    obs = models.CharField("Obs", max_length=255, blank=True)
+    estoque = models.IntegerField("Quantidade em Estoque", blank=True, default=None, null=True)
+    marca = models.CharField("Marca", blank=True, max_length=50, default=None, null=True)
+    obs = models.CharField("Obs", max_length=255, blank=True, default=None, null=True)
     created_at = models.DateTimeField("Criado em", auto_now_add=True, null=True)
     uploaded_at = models.DateTimeField("Atualizado em", auto_now=True, null=True)
 
@@ -123,6 +124,7 @@ class Servico(models.Model):
     quantidade = models.IntegerField("Quantidade", null=False)
     created_at = models.DateTimeField("Criado em", auto_now_add=True, null=True)
     uploaded_at = models.DateTimeField("Atualizado em", auto_now=True, null=True)
+    valor_total_servico = models.FloatField("Total", blank=True, default=0.0)
 
     def __str__(self):
         return self.nome
@@ -146,6 +148,7 @@ class Nota(models.Model):
     uploaded_at = models.DateTimeField("Atualizado em", auto_now=True, null=True)
     obs = models.TextField("Observações", null=True, blank=True)
     servico = models.ManyToManyField(Servico, through="GrupoNotaServico", null=True)
+    valor_total_nota = models.FloatField("Total", blank=True, default=0.0)
 
     def __str__(self):
         return str(self.numero)
@@ -194,25 +197,3 @@ class GrupoNotaServico(models.Model):
         super(GrupoNotaServico, self).save(*args, **kwargs)
         cliente = self.servico.cliente
         cliente.nota.add(self.nota)
-
-
-class Saidas(models.Model):
-    descricao = models.CharField("Descrição", max_length=150)
-    valor = models.FloatField("Valor", null=True, blank=True)
-    created_at = models.DateTimeField("Criado em", auto_now_add=True, null=True)
-    uploaded_at = models.DateTimeField("Atualizad em", auto_now=True, null=True)
-
-    ORIGEM_CHOICE = (
-        (0, "INVISTA"),
-        (1, "THE BRINDES"),
-    )
-
-    origem = models.IntegerField("Origem", choices=ORIGEM_CHOICE, default=0, blank=True)
-
-    def __str__(self):
-        return str(self.descricao)
-
-    class Meta:
-        verbose_name = "Saida"
-        verbose_name_plural = "Saidas"
-        ordering = ["-created_at"]
