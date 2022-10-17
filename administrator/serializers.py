@@ -3,26 +3,6 @@ from rest_framework import serializers
 # pylint: disable=import-error
 from core.models import Chapa, Nota, Servico, Cliente
 
-class ClienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cliente
-        fields = (
-            "id",
-            "nome",
-            "email",
-            "telefone",
-            "cnpj",
-            "cpf",
-            "rua",
-            "bairro",
-            "numero",
-            "cidade",
-            "estado",
-            "cep",
-            "created_at",
-            "uploaded_at",
-            "nota",
-        )
 
 class ChapaSerializer(serializers.ModelSerializer):
     class Meta:
