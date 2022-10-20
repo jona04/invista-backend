@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from rest_framework import serializers
 
 from core.models import Chapa, Servico
@@ -11,7 +12,7 @@ class ChapaSerializer(serializers.ModelSerializer):
 
 class ServicoSerializer(serializers.ModelSerializer):
     cliente = serializers.StringRelatedField()
-    chapa = ChapaSerializer(read_only=True)
+    chapa = serializers.StringRelatedField()
 
     class Meta:
         model = Servico
@@ -27,3 +28,14 @@ class ServicoSerializer(serializers.ModelSerializer):
         )
 
 
+class ServicoSerializerTest():
+
+    def serialize_servico(servico: Servico) -> Dict[str, Any]:
+        return {
+            'nome': servico.nome,
+            'cliente': servico.cliente.__str__(),
+            'chapa': servico.chapa.__str__(),
+            'quantidade': servico.quantidade,
+            'valor_total_servico': servico.valor_total_servico,
+            'created_at': servico.created_at.isoformat()
+        }

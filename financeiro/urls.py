@@ -5,6 +5,6 @@ from .views import ServicoBackendAPIView, ServicoFrontendAPIView
 
 urlpatterns = [
     path('', include("common.urls")),
-    path('servicos/frontend', ServicoFrontendAPIView),
-    path('servicos/backend', ServicoBackendAPIView),
+    path('servicos/frontend', ServicoFrontendAPIView.as_view()),
+    path('servicos/backend', ServicoBackendAPIView.as_view()),
 ]
