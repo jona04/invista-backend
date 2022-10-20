@@ -9,10 +9,10 @@ from .serializers import ChapaSerializer, ClienteSerializer, NotaSerializer, Ser
 from core.models import Chapa, Cliente, Nota, Servico, User
 
 
-class FuncionarioAPIView(APIView):
+class FinanceiroAPIView(APIView):
     def get(self, _):
-        funcionario = User.objects.filter(is_funcionario=True)
-        serializer = UserSerializer(funcionario, many=True)
+        financeiro = User.objects.filter(is_financeiro=True)
+        serializer = UserSerializer(financeiro, many=True)
         return Response(serializer.data)
 
 
@@ -44,7 +44,6 @@ class ClienteGenericAPIView(generics.GenericAPIView,
         return self.destroy(request, pk)
 
 
-
 class ChapaGenericAPIView(generics.GenericAPIView, 
                         mixins.RetrieveModelMixin,
                         mixins.ListModelMixin,
@@ -72,6 +71,7 @@ class ChapaGenericAPIView(generics.GenericAPIView,
     def delete(self, request, pk=None):
         return self.destroy(request, pk)
     
+
 class ServicoGenericAPIView(generics.GenericAPIView, 
                         mixins.RetrieveModelMixin,
                         mixins.ListModelMixin,

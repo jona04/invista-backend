@@ -15,7 +15,7 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.is_admin = False
         user.is_staff = False
-        user.is_funcionario = False
+        user.is_financeiro = False
         user.save(using=self._db)
 
         return user
@@ -31,7 +31,7 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.is_admin = True
         user.is_staff = True
-        user.is_funcionario = False
+        user.is_financeiro = False
         user.save(using=self._db)
 
         return user
@@ -42,7 +42,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=100)
     email = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
-    is_funcionario = models.BooleanField(default=True)
+    is_financeiro = models.BooleanField(default=True)
     username = None
 
     USERNAME_FIELD = "email"

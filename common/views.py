@@ -14,8 +14,8 @@ class RegisterApiView(APIView):
 
         if data['password'] != data['password_confirm']:
             raise exceptions .APIException('Senha nao iguais')
-        
-        data['is_funcionario'] = 0
+
+        data['is_financeiro'] = 'api/financeiro' in request.path
         
         serializer = UserSerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -35,7 +35,12 @@ class LoginApiView(APIView):
         if not user.check_password(password):
             raise exceptions.AuthenticationFailed('Senha incorreta')
         
-        token = JWTAuthentication.generate_jwt(user.id)
+        scope = 'financeiro' if 'api/financeiro' in request.path else 'admin'
+
+        if not user.is_financeiro and scope == 'financeiro':
+            raise exceptions.AuthenticationFailed('Sem autorizacao')
+
+        token = JWTAuthentication.generate_jwt(user.id, scope)
 
         response = Response()
         response.set_cookie(key='jwt', value=token, httponly=True)

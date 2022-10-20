@@ -1,11 +1,10 @@
-
 from django.urls import include, path
 
-from administrator.views import ChapaGenericAPIView, ClienteGenericAPIView, FuncionarioAPIView, NotaGenericAPIView, ServicoGenericAPIView
+from administrator.views import ChapaGenericAPIView, ClienteGenericAPIView, FinanceiroAPIView, NotaGenericAPIView, ServicoGenericAPIView
 
 urlpatterns = [
     path('', include("common.urls")),
-    path('funcionarios', FuncionarioAPIView.as_view()),
+    path('financeiros', FinanceiroAPIView.as_view()),
     path('chapas', ChapaGenericAPIView.as_view()),
     path('chapas/<str:pk>', ChapaGenericAPIView.as_view()),
     path('clientes', ClienteGenericAPIView.as_view()),

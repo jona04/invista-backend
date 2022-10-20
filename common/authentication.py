@@ -7,6 +7,8 @@ from invista import settings
 class JWTAuthentication(BaseAuthentication):
     
     def authenticate(self, request):
+        is_financeiro = 'api/financeiro' in request.path
+
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -17,6 +19,10 @@ class JWTAuthentication(BaseAuthentication):
         except jwt.ExpiredSignatureError:
             raise exceptions.AuthenticationFailed('nao autenticado')
 
+        # if (is_financeiro and payload['scope'] != 'financeiro') or ((not is_financeiro) and payload['scope'] != 'admin'):
+        if not is_financeiro and payload['scope'] == 'financeiro':
+            raise exceptions.AuthenticationFailed('Escopo invalido')
+
         user = User.objects.get(pk=payload['user_id'])
 
         if user is None:
@@ -26,9 +32,10 @@ class JWTAuthentication(BaseAuthentication):
 
 
     @staticmethod
-    def generate_jwt(id):
+    def generate_jwt(id, scope):
         payload = {
             'user_id': id,
+            'scope': scope,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
             'iat': datetime.datetime.utcnow()
         }

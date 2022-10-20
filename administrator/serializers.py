@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 # pylint: disable=import-error
 from core.models import Chapa, Nota, Servico, Cliente
 
