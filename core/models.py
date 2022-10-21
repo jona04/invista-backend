@@ -90,8 +90,12 @@ class Cliente(models.Model):
 class Chapa(models.Model):
     nome = models.CharField("Nome", max_length=100)
     valor = models.FloatField("Valor", blank=True)
-    estoque = models.IntegerField("Quantidade em Estoque", blank=True, default=None, null=True)
-    marca = models.CharField("Marca", blank=True, max_length=50, default=None, null=True)
+    estoque = models.IntegerField(
+        "Quantidade em Estoque", blank=True, default=None, null=True
+    )
+    marca = models.CharField(
+        "Marca", blank=True, max_length=50, default=None, null=True
+    )
     obs = models.CharField("Obs", max_length=255, blank=True, default=None, null=True)
     created_at = models.DateTimeField("Criado em", auto_now_add=True, null=True)
     uploaded_at = models.DateTimeField("Atualizado em", auto_now=True, null=True)

@@ -9,7 +9,7 @@ from django.core.cache import cache
 
 
 class ServicoFrontendAPIView(APIView):
-    @method_decorator(cache_page(60*60*2, key_prefix='servicos_backend'))
+    @method_decorator(cache_page(60*60*2, key_prefix='servicos_frontend'))
     def get(self, _):
         servicos = Servico.objects.all()
         serializer = ServicoSerializer(servicos, many=True)
