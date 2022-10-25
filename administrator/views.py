@@ -12,7 +12,7 @@ from core.models import Chapa, Cliente, GrupoNotaServico, Nota, Servico, User
 
 class FinanceiroAPIView(APIView):
     def get(self, _):
-        financeiro = User.objects.filter(is_financeiro=True)
+        financeiro = User.objects.all()
         serializer = UserSerializer(financeiro, many=True)
         return Response(serializer.data)
 
