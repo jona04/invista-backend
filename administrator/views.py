@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, mixins
@@ -84,6 +86,7 @@ class ServicoGenericAPIView(generics.GenericAPIView,
     queryset = Servico.objects.all()
     serializer_class = ServicoSerializer
 
+    @method_decorator(cache_page(60*60*2, key_prefix='servicos_admin'))
     def get(self, request, pk=None):
         if pk:
             return self.retrieve(request, pk)
@@ -97,7 +100,7 @@ class ServicoGenericAPIView(generics.GenericAPIView,
         response = self.create(request, chapa=chapa, cliente=cliente)
         
         for key in cache.keys('*'):
-            if 'servicos_frontend' in key:
+            if 'servicos_frontend' in key or 'servicos_admin' in key:
                 cache.delete(key)
         cache.delete('servicos_backend')
         return response
@@ -106,7 +109,7 @@ class ServicoGenericAPIView(generics.GenericAPIView,
     def put(self, request, pk=None):
         response = self.partial_update(request, pk)
         for key in cache.keys('*'):
-            if 'servicos_frontend' in key:
+            if 'servicos_frontend' in key or 'servicos_admin' in key:
                 cache.delete(key)
         cache.delete('servicos_backend')
         return response
@@ -114,7 +117,7 @@ class ServicoGenericAPIView(generics.GenericAPIView,
     def delete(self, request, pk=None):
         response = self.destroy(request, pk)
         for key in cache.keys('*'):
-            if 'servicos_frontend' in key:
+            if 'servicos_frontend' in key or 'servicos_admin' in key:
                 cache.delete(key)
         cache.delete('servicos_backend')
         return response
