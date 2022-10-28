@@ -86,7 +86,7 @@ class ServicoGenericAPIView(generics.GenericAPIView,
     queryset = Servico.objects.all()
     serializer_class = ServicoSerializer
 
-    @method_decorator(cache_page(60*60*2, key_prefix='servicos_admin'))
+    @method_decorator(cache_page(60*60*2, key_prefix='servicos_frontend'))
     def get(self, request, pk=None):
         if pk:
             return self.retrieve(request, pk)
@@ -96,7 +96,7 @@ class ServicoGenericAPIView(generics.GenericAPIView,
     def post(self, request):
         chapa = Chapa.objects.get(pk=request.data['chapa'])
         cliente = Cliente.objects.get(pk=request.data['cliente'])
-        request.data['valor_total_servico'] = request.data['quantidade'] * chapa.valor
+        request.data['valor_total_servico'] = float(request.data['quantidade']) * chapa.valor
         response = self.create(request, chapa=chapa, cliente=cliente)
         
         for key in cache.keys('*'):
