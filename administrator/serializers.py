@@ -25,6 +25,48 @@ class ServicoSerializer(serializers.ModelSerializer):
         )
 
 
+class ServicoListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Servico
+        fields = (
+            "id",
+            "nome",
+            "quantidade",
+            "valor_total_servico",
+            "created_at"
+        )
+
+
+class NotaFullSerializer(serializers.ModelSerializer):
+    servico = ServicoSerializer(many=True)
+    class Meta:
+        model = Nota
+        fields = (
+            "id",
+            "desconto",
+            "numero",
+            "obs",
+            "servico",
+            "status",
+            "valor_total_nota",
+            "created_at"
+        )
+
+
+class NotaListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Nota
+        fields = (
+            "id",
+            "desconto",
+            "numero",
+            "obs",
+            "status",
+            "valor_total_nota",
+            "created_at"
+        )
+
+
 class NotaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nota

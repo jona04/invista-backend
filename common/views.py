@@ -90,7 +90,7 @@ class ProfilePasswordAPIView(APIView):
         data = request.data
 
         if data['password'] != data['password_confirm']:
-            raise exceptions .APIException('Senha nao iguais')
+            raise exceptions.APIException('Senha nao iguais')
 
         user.set_password(data['password'])
         user.save()
