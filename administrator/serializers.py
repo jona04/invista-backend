@@ -4,6 +4,27 @@ from rest_framework import serializers
 from core.models import Chapa, GrupoNotaServico, Nota, Servico, Cliente
 
 
+class ClienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cliente
+        fields = (
+            "id",
+            "nome",
+            "email",
+            "telefone",
+            "cnpj",
+            "cpf",
+            "rua",
+            "bairro",
+            "numero",
+            "cidade",
+            "estado",
+            "cep",
+            "created_at",
+            "uploaded_at"
+        )
+
+
 class ChapaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapa
@@ -11,6 +32,23 @@ class ChapaSerializer(serializers.ModelSerializer):
 
 
 class ServicoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Servico
+        fields = (
+            "id",
+            "nome",
+            "cliente",
+            "chapa",
+            "quantidade",
+            "valor_total_servico",
+            "created_at",
+            "uploaded_at",
+        )
+
+
+class ServicoFullSerializer(serializers.ModelSerializer):
+    chapa = ChapaSerializer()
+    cliente = ClienteSerializer()
     class Meta:
         model = Servico
         fields = (
@@ -38,7 +76,7 @@ class ServicoListSerializer(serializers.ModelSerializer):
 
 
 class NotaFullSerializer(serializers.ModelSerializer):
-    servico = ServicoSerializer(many=True)
+    servico = ServicoFullSerializer(many=True)
     class Meta:
         model = Nota
         fields = (
@@ -87,24 +125,3 @@ class GrupoNotaServicoSerializer(serializers.ModelSerializer):
     class Meta:
         model: GrupoNotaServico
         fields = '__all__'
-
-
-class ClienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cliente
-        fields = (
-            "id",
-            "nome",
-            "email",
-            "telefone",
-            "cnpj",
-            "cpf",
-            "rua",
-            "bairro",
-            "numero",
-            "cidade",
-            "estado",
-            "cep",
-            "created_at",
-            "uploaded_at"
-        )

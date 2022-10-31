@@ -239,6 +239,27 @@ class NotaGenericAPIView(generics.GenericAPIView,
         return Response(NotaSerializer(nota).data)
 
     def put(self, request, pk=None):
+        servico_id_list = request.data.pop('servico')
+        servicos_list = []
+        valor_total = 0.0
+        for servico_id in servico_id_list:
+            nota_check = GrupoNotaServico.objects.filter(servico_id=servico_id).first()
+            if nota_check == None:
+                servico_obj = Servico.objects.get(pk=servico_id)
+                valor_total = valor_total + servico_obj.valor_total_servico
+                servicos_list.append(servico_obj)
+            elif int(nota_check.nota.id) == int(pk):
+                servico_obj = Servico.objects.get(pk=servico_id)
+                valor_total = valor_total + servico_obj.valor_total_servico
+            else:
+                raise exceptions.APIException(f'Servico ja esta cadastrado na nota de numero: {nota_check.nota.id}')
+
+        request.data['valor_total_nota'] = valor_total
+
+        nota_instance = Nota.objects.get(pk=pk)
+        for servico in servicos_list:
+            GrupoNotaServico.objects.create(nota=nota_instance, servico=servico)
+
         for key in cache.keys('*'):
             if 'notas_frontend' in key:
                 cache.delete(key)
