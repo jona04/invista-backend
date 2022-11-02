@@ -1,68 +1,45 @@
-from django.shortcuts import render
 from rest_framework.views import APIView, Response
-from rest_framework import exceptions
-from rest_framework.permissions import IsAuthenticated
-from .authentication import JWTAuthentication
+import requests
 
-from core.models import User
+from .services import UserService
 
-from .serializers import UserSerializer
 
 class RegisterApiView(APIView):
     def post(self, request):
         data = request.data
-
-        if data['password'] != data['password_confirm']:
-            raise exceptions .APIException('Senha nao iguais')
-
         data['is_financeiro'] = 'api/financeiro' in request.path
         
-        serializer = UserSerializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+        response = requests.post('http://172.17.0.1:8001/api/register', data)
+
+        return Response(response.json())
+
 
 class LoginApiView(APIView):
     def post(self, request):
-        email = request.data['email']
-        password = request.data['password']
+        data = request.data
+        data['scope'] = 'financeiro' if 'api/financeiro' in request.path else 'admin'
 
-        user = User.objects.filter(email=email).first()
 
-        if user is None:
-            raise exceptions.AuthenticationFailed('Usuario nao encontrado')
-
-        if not user.check_password(password):
-            raise exceptions.AuthenticationFailed('Senha incorreta')
-        
-        scope = 'financeiro' if 'api/financeiro' in request.path else 'admin'
-
-        if not user.is_financeiro and scope == 'financeiro':
-            raise exceptions.AuthenticationFailed('Sem autorizacao')
-
-        token = JWTAuthentication.generate_jwt(user.id, scope)
+        res = UserService.post('login', data=data)
 
         response = Response()
-        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.set_cookie(key='jwt', value=res['jwt'], httponly=True)
         response.data = {
             'message': 'Success'
         }
 
         return response
 
-class UserAPIView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
 
+class UserAPIView(APIView):
     def get(self, request):
-        return Response(UserSerializer(request.user).data)
+        return Response(request.user_ms)
 
 
 class LogoutAPIView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-
     def post(self, request):
+        UserService.post('logout', headers=request.headers)
+
         response = Response()
         response.delete_cookie(key='jwt')
         response.data = {
@@ -70,28 +47,12 @@ class LogoutAPIView(APIView):
         }
         return response
 
-class ProfileInfoAPIView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
 
+class ProfileInfoAPIView(APIView):
     def put(self, request):
-        user = request.user
-        serializer = UserSerializer(user, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+        return Response(UserService.put('users/info', data=request.data, headers=request.headers))
+
 
 class ProfilePasswordAPIView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-
     def put(self, request, pk=None):
-        user = request.user
-        data = request.data
-
-        if data['password'] != data['password_confirm']:
-            raise exceptions.APIException('Senha nao iguais')
-
-        user.set_password(data['password'])
-        user.save()
-        return Response(UserSerializer(user).data)
+        return Response(UserService.put('users/password', data=request.data, headers=request.headers))

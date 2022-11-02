@@ -1,7 +1,6 @@
 from rest_framework.authentication import BaseAuthentication
 from rest_framework import exceptions
 import datetime, jwt
-from core.models import User
 from invista import settings
 
 class JWTAuthentication(BaseAuthentication):

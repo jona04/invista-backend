@@ -5,19 +5,18 @@ from rest_framework.response import Response
 from rest_framework import generics, mixins
 from rest_framework.permissions import IsAuthenticated
 from common.authentication import JWTAuthentication
-from common.serializers import UserSerializer
 from django.core.cache import cache
 from rest_framework import exceptions
 
+from common.services import UserService
 from .serializers import ChapaSerializer, ClienteSerializer, NotaListSerializer, NotaSerializer, ServicoListSerializer, ServicoSerializer, NotaFullSerializer
 from core.models import Chapa, Cliente, GrupoNotaServico, Nota, Servico, User
 
 
 class FinanceiroAPIView(APIView):
-    def get(self, _):
-        financeiro = User.objects.all()
-        serializer = UserSerializer(financeiro, many=True)
-        return Response(serializer.data)
+    def get(self, request):
+        users = UserService.get('users', headers=request.headers)
+        return Response(filter(lambda a: a['is_financeiro'] == 1, users))
 
 
 class ClienteGenericAPIView(generics.GenericAPIView, 
