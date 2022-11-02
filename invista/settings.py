@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "rangefilter",
-    "common"
+    "common",
 ]
 
 MIDDLEWARE = [
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "common.middlewares.AuthMiddleware"
+    "common.middlewares.AuthMiddleware",
 ]
 
 REST_FRAMEWORK = {
